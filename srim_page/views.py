@@ -1,3 +1,12 @@
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView
+from .models import Stock
 
-# Create your views here.
+
+class StockList(ListView):
+    model = Stock
+    ordering = 'pk'
+
+
+class StockDetail(DetailView):
+    model = Stock
