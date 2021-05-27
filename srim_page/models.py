@@ -14,3 +14,6 @@ class Stock(models.Model):
     gap = models.CharField(max_length=20, null=True)
     risky = models.CharField(max_length=20)
     created_at = models.DateTimeField(default=now)
+
+    def __str__(self):
+        return f'[{self.pk}]{self.name}'
