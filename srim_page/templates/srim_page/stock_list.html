@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load humanize %}
 <html lang="ko">
 
 <head>
@@ -208,7 +209,8 @@
                                                    data-show-columns="true"
                                                    data-show-multi-sort="true"
                                                    data-pagination="true"
-                                                   data-click-to-select="true">
+                                                   data-click-to-select="true"
+                                                   data-custom-sort="customSort">
                                                 <thead>
                                                 <tr>
                                                     <th data-field="state" data-checkbox="true"></th>
@@ -230,10 +232,10 @@
                                                     <td></td>
                                                     <td>{{ stock.code }}</td>
                                                     <td>{{ stock.name }}</td>
-                                                    <td>{{ stock.current_price }}원</td>
-                                                    <td>{{ stock.srim_price }}원</td>
-                                                    <td>{{ stock.srim10_price }}원</td>
-                                                    <td>{{ stock.srim20_price }}원</td>
+                                                    <td>{{ stock.current_price | intcomma }}원</td>
+                                                    <td>{{ stock.srim_price | intcomma }}원</td>
+                                                    <td>{{ stock.srim10_price | intcomma }}원</td>
+                                                    <td>{{ stock.srim20_price | intcomma }}원</td>
                                                     <td>{{ stock.gap }}%</td>
                                                     <td>{{ stock.roe }}%</td>
                                                     <td>{{ stock.risky }}</td>
@@ -275,9 +277,7 @@
 
 <script>
   $(function() {
-    $('#table').bootstrapTable({
-      showMultiSort: true,
-    })
+    $('#table').bootstrapTable()
   })
 </script>
 
@@ -301,6 +301,23 @@
       })
     }).trigger('change')
   })
+</script>
+
+<script>
+  function customSort(sortName, sortOrder, data) {
+    var order = sortOrder === 'desc' ? -1 : 1
+    data.sort(function (a, b) {
+      var aa = +((a[sortName] + '').replace(/[^\d]/g, ''))
+      var bb = +((b[sortName] + '').replace(/[^\d]/g, ''))
+      if (aa < bb) {
+        return order * -1
+      }
+      if (aa > bb) {
+        return order
+      }
+      return 0
+    })
+  }
 </script>
 
 

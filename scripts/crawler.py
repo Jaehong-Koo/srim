@@ -82,7 +82,6 @@ def stock_market(stock_code):
 # 종가 가져오는 함수
 def stock_price(stock_code):
     stock_price = int(stock_df.loc[stock_code]['종가'])
-    # stock_price = format(stock_price, ",")
 
     return stock_price
 
@@ -245,7 +244,6 @@ def srim(stock_code, w):
     srim = company_value / stock_count(stock_code)  # 적정주가 = 시가총액/유통주식수
 
     srim = int(srim.round())  # 반올림 + 정수형(int)
-    # srim = format(srim, ",")
 
     return srim
 
@@ -353,10 +351,10 @@ def run():
         try:
             stock_code = stock_df.index[row]
             name = stock_name(stock_code)
-            current_price = format(stock_price(stock_code), ",") # 3자리수 콤마
-            srim_price = format(srim(stock_code, 1), ",")
-            srim10_price = format(srim(stock_code, 0.9), ",")
-            srim20_price = format(srim(stock_code, 0.8), ",")
+            current_price = stock_price(stock_code)
+            srim_price = srim(stock_code, 1)
+            srim10_price = srim(stock_code, 0.9)
+            srim20_price = srim(stock_code, 0.8)
             roe = roe_3(stock_code).round(2)
             gap = gap_(stock_code)
             risky = risk(stock_code)
@@ -367,6 +365,7 @@ def run():
 
         except Exception as e:
             print(e)
+            print(row)
             continue
 
 
