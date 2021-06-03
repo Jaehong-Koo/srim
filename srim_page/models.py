@@ -19,5 +19,5 @@ class Stock(models.Model):
         return f'[{self.pk}]{self.name}'
 
     def get_absolute_url(self):
-        return f'/srim_page/{self.pk}/'
+        return '/{}/'.format(self.pk)
 
