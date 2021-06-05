@@ -1,10 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'srim_page/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block main_area %}
 
-</body>
-</html>
+<div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+        <div class="pcoded-content">
+            <div class="pcoded-inner-content">
+                <!-- [ breadcrumb ] start -->
+                <div class="page-header">
+                    <div class="page-block">
+                        <div class="row align-items-center">
+                            <div class="col-md-12">
+                                <div class="page-header-title">
+                                    <h5 class="m-b-10">개별 종목</h5>
+                                </div>
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-server"></i></a></li>
+                                    <li class="breadcrumb-item"><a href="/">종목 리스트</a></li>
+                                    <li class="breadcrumb-item">{{ stock.name }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2>{{ stock.name }}</h2>
+                <div class="row">
+                    <!-- [ Top-card-section ] start-->
+                    <div class="col-md-12 col-xl-4">
+                        <div class="card bg-c-blue bitcoin-wallet">
+                            <div class="card-block">
+                                <h5 class="text-white mb-2">현재 가격(종가)</h5>
+                                <h2 class="text-white mb-2 f-w-300">{{ stock.current_price|intcomma}}원</h2>
+                                <span class="text-white d-block">업데이트 : {{ stock.created_at }}</span>
+                                <i class="fas fa-pound-sign f-70 text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-4">
+                        <div class="card theme-bg bitcoin-wallet">
+                            <div class="card-block">
+                                <h5 class="text-white mb-2">S-RIM 적정 가격</h5>
+                                <h2 class="text-white mb-2 f-w-300">{{ stock.srim_price|intcomma }}원</h2>
+                                <span class="text-white d-block">(이익 지속될시)</span>
+                                <i class="fab fa-btc f-70 text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-4">
+                        <div class="card theme-bg2 bitcoin-wallet">
+                            <div class="card-block">
+                                <h5 class="text-white mb-2">괴리율</h5>
+                                <h2 class="text-white mb-2 f-w-300">{{ stock.gap }}%</h2>
+                                <span class="text-white d-block">현재가/SRIM 가격대비</span>
+                                <i class="fas fa-dollar-sign f-70 text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [ Top-card-section ] end-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}

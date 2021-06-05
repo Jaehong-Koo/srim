@@ -1,165 +1,9 @@
-<!DOCTYPE html>
+{% extends 'srim_page/base.html' %}
 {% load static %}
 {% load humanize %}
-<html lang="ko">
-
-<head>
-    <title>
-        S-RIM 홈페이지
-    </title>
-    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 10]>
-		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>-->
-    <!--		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>-->
-    <!--		<![endif]&ndash;&gt;-->
-    <!-- Meta -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="canonical" href="https://appseed.us/admin-dashboards/django-dashboard-dattaable">
-
-    <meta name="description" content="Datta Able Bootstrap admin template made using Bootstrap 4 and it has huge amount of ready made feature, UI components, pages which completely fulfills any dashboard needs." />
-    <meta name="keywords" content="admin templates, bootstrap admin templates, bootstrap 4, dashboard, dashboard templets, sass admin templets, html admin templates, responsive, bootstrap admin templates free download,premium bootstrap admin templates, datta able, datta able bootstrap admin template, free admin theme, free dashboard template"/>
-    <meta name="author" content="CodedThemes"/>
-
-    <!-- Favicon icon -->
-    <link rel="icon" href="{% static 'srim_page/assets/images/favicon.ico' %}" type="image/x-icon">
-    <!-- fontawesome icon -->
-    <link rel="stylesheet" href="{% static 'srim_page/assets/fonts/fontawesome/css/fontawesome-all.min.css' %}">
-    <!-- animation css -->
-    <link rel="stylesheet" href="{% static 'srim_page/assets/plugins/animation/css/animate.min.css' %}">
-    <!-- vendor css -->
-    <link rel="stylesheet" href="{% static 'srim_page/assets/css/style.css' %}">
-
-    <!-- Specific CSS goes HERE -->
-    <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
-
-
-</head>
-
-<body>
-
-<!-- [ Pre-loader ] start -->
-<div class="loader-bg">
-    <div class="loader-track">
-        <div class="loader-fill"></div>
-    </div>
-</div>
-
-<!-- Top Bar -->
-<!-- NOT IMPLEMENTED -->
-
-
-<!-- SideBar -->
-
-<nav class="pcoded-navbar">
-    <div class="navbar-wrapper">
-        <div class="navbar-brand header-logo">
-            <a target="_blank"
-               href="https://appseed.us/admin-dashboards/django-datta-able" class="b-brand">
-                <div class="b-bg">
-                    <i class="feather icon-trending-up"></i>
-                </div>
-                <span class="b-title">S-RIM 홈페이지</span>
-            </a>
-            <a class="mobile-menu" id="mobile-collapse" href="javascript:"><span></span></a>
-        </div>
-        <div class="navbar-content scroll-div">
-            <ul class="nav pcoded-inner-navbar">
-                <li class="nav-item pcoded-menu-caption">
-                    <label>Navigation</label>
-                </li>
-                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
-                    class="nav-item ">
-                    <a href="/" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
-                </li>
-                <li class="nav-item pcoded-menu-caption">
-                    <label>UI Element</label>
-                </li>
-                <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
-                    <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Components</span></a>
-                    <ul class="pcoded-submenu">
-                        <li class=""><a href="/ui-button.html" class="">Button</a></li>
-                        <li class=""><a href="/ui-badges.html" class="">Badges</a></li>
-                        <li class=""><a href="/ui-breadcrumb-pagination.html" class="">Breadcrumb & paggination</a></li>
-                        <li class=""><a href="/ui-collapse.html" class="">Collapse</a></li>
-                        <li class=""><a href="/ui-tabs.html" class="">Tabs & pills</a></li>
-                        <li class=""><a href="/ui-typography.html" class="">Typography</a></li>
-                        <li class=""><a href="/ui-icons.html" class="">Feather<span class="pcoded-badge label label-danger">NEW</span></a></li>
-                    </ul>
-                </li>
-                <li class="nav-item pcoded-menu-caption">
-                    <label>Forms & table</label>
-                </li>
-                <li data-username="form elements advance componant validation masking wizard picker select"
-                    class="nav-item ">
-                    <a href="/ui-forms.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">Form elements</span></a>
-                </li>
-                <li data-username="Table bootstrap datatable footable"
-                    class="nav-item  active ">
-                    <a href="/ui-tables.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-server"></i></span><span class="pcoded-mtext">Table</span></a>
-                </li>
-                <li class="nav-item pcoded-menu-caption">
-                    <label>Chart & Maps</label>
-                </li>
-                <li data-username="Charts Morris"
-                    class="nav-item ">
-                    <a href="/charts-morris.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Chart</span></a></li>
-                <li data-username="Maps Google"
-                    class="nav-item ">
-                    <a href="/maps-google.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-map"></i></span><span class="pcoded-mtext">Maps</span></a></li>
-                <li class="nav-item pcoded-menu-caption">
-                    <label>Pages</label>
-                </li>
-                <li data-username="Authentication Sign up Sign in reset password Change password Personal information profile settings map form subscribe" class="nav-item pcoded-hasmenu">
-                    <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-lock"></i></span><span class="pcoded-mtext">Authentication</span></a>
-                    <ul class="pcoded-submenu">
-                        <li class=""><a href="/auth-reset-pass.html" class="">Reset Pass (template)</a></li>
-                        <li class=""><a href="/login.html" class="">Login (template)</a></li>
-                        <li class=""><a href="/register.html" class="">Register (template)</a></li>
-                    </ul>
-                </li>
-                <li data-username="Sample Page"
-                    class="nav-item ">
-                    <a href="/page-blank.html" class="nav-link"><span class="pcoded-micon"><i class="feather icon-sidebar"></i></span><span class="pcoded-mtext">Sample page</span></a></li>
-                <li data-username="Sample Page" class="nav-item"><a href="/page-404.html" class="nav-link"><span class="pcoded-micon"><i class="feather icon-sidebar"></i></span><span class="pcoded-mtext">Error 404</span></a></li>
-
-                <li data-username="Disabled Menu" class="nav-item">
-                    <a href="/logout/" class="nav-link">
-                        <span class="pcoded-micon"><i class="feather icon-power"></i></span><span class="pcoded-mtext">Logout</span>
-                    </a>
-                </li>
-                <li class="nav-item pcoded-menu-caption">
-                    <label>More Resources</label>
-                </li>
-                <li data-username="Support Page" class="nav-item ">
-                    <a target="_blank" href="https://appseed.us/support" class="nav-link">
-                            <span class="pcoded-micon">
-                                <i class="feather icon-headphones"></i>
-                            </span>
-                        <span class="pcoded-mtext">Support</span>
-                    </a>
-                </li>
-                <li data-username="Support Page" class="nav-item ">
-                    <a target="_blank" href="https://appseed.us/admin-dashboards/django-dashboard-dattaable-pro" class="nav-link">
-                            <span class="pcoded-micon">
-                                <i class="feather icon-tag"></i>
-                            </span>
-                        <span class="pcoded-mtext">PRO Version</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-
+{% block main_area %}
 <div class="pcoded-main-container">
     <div class="pcoded-wrapper">
-
-
-
         <div class="pcoded-content">
             <div class="pcoded-inner-content">
                 <!-- [ breadcrumb ] start -->
@@ -171,7 +15,7 @@
                                     <h5 class="m-b-10">Bootstrap Basic Tables</h5>
                                 </div>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+                                    <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-server"></i></a></li>
                                     <li class="breadcrumb-item"><a href="#!">Tables</a></li>
                                     <li class="breadcrumb-item"><a href="javascript:">Basic Tables</a></li>
                                 </ul>
@@ -215,6 +59,7 @@
                                                     <th data-field="state" data-checkbox="true"></th>
                                                     <th data-field="종목코드">종목코드</th>
                                                     <th data-field="종목명">종목명</th>
+                                                    <th data-field="섹터" data-sortable="true">섹터</th>
                                                     <th data-field="현재가">현재가(A)</th>
                                                     <th data-field="적정가격(SRIM매도)">적정가격(B)</th>
                                                     <th data-field="적정가격(SRIM10%)">적정가격(SRIM10%)</th>
@@ -232,6 +77,7 @@
                                                     <td></td>
                                                     <td>{{ stock.code }}</td>
                                                     <td>{{ stock.name }}</td>
+                                                    <td>{{ stock.sector }}</td>
                                                     <td>{{ stock.current_price | intcomma }}원</td>
                                                     <td>{{ stock.srim_price | intcomma }}원</td>
                                                     <td>{{ stock.srim10_price | intcomma }}원</td>
@@ -256,59 +102,6 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
 </div>
-
-
-<!-- Required Js -->
-<script src="{% static 'srim_page/assets/js/vendor-all.min.js' %}"></script>
-<script src="{% static 'srim_page/assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
-<script src="{% static 'srim_page/assets/js/pcoded.min.js' %}"></script>
-
-
-<!-- Specific Page JS goes HERE  -->
-<script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/tableExport.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/export/bootstrap-table-export.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/multiple-sort/bootstrap-table-multiple-sort.js"></script>
-
-
-<script>
-  $(function() {
-    $('#table').bootstrapTable()
-  })
-</script>
-
-<script>
-  $table = $('#table')
-
-  $(function() {
-    $('#toolbar').find('select').change(function () {
-      $table.bootstrapTable('destroy').bootstrapTable({
-        exportDataType: $(this).val(),
-        exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel'],
-        search: true,
-        pagination: true,
-        columns: [
-          {
-            field: 'state',
-            checkbox: true,
-            visible: $(this).val() === 'selected'
-          }
-        ]
-      })
-    }).trigger('change')
-  })
-</script>
-
-<script>
-  function LinkFormatter(e, t) {
-    return '<a href="' + e + '" target="_blank">' + "더보기" + "</a>"
-  };
-</script>
-
-</body>
-</html>
+{% endblock %}
