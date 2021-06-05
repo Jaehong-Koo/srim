@@ -21,3 +21,6 @@ class Stock(models.Model):
     def get_absolute_url(self):
         return '/{}/'.format(self.pk)
 
+
+
+
