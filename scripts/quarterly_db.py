@@ -1,4 +1,5 @@
 from scripts.daily_db import *
+import csv
 
 
 #### 2. Quarterly 필요한 DB쌓기 - 네이버금융, 에프앤가이드
@@ -98,16 +99,25 @@ def mystock_count_df(stock_code):
 
     return df
 
+## DB쌓기
+def run():
+    naver_report = pd.DataFrame()
+    fnguide_df = pd.DataFrame()
+    for cnt in range(0, 50):  # len(stock_df)
+        stock_code = stock_df.iloc[cnt].name
+        try:
+            naver_report = pd.concat([naver_report, naver_total(stock_code)])
+            fnguide_df = pd.concat([fnguide_df, mystock_count_df(stock_code)])
+            print("done")
+        except:
+            print(stock_code)
+            pass
 
-naver_report = pd.DataFrame()
-fnguide_df = pd.DataFrame()
-for cnt in range(0, len(stock_df)):  # len(stock_df)
-    stock_code = stock_df.iloc[cnt].name
-    try:
-        naver_report = pd.concat([naver_report, naver_total(stock_code)])
-        fnguide_df = pd.concat([fnguide_df, mystock_count_df(stock_code)])
-        print("done")
-    except:
-        print(stock_code)
-        pass
+    naver_report = naver_report.fillna(0)
+
+    fnguide_df.to_hdf('fnguide.hdf', key='df')
+    naver_report.to_hdf('naver.hdf', key='df')
+
+
+
 

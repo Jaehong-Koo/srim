@@ -1,5 +1,9 @@
-from scripts.quarterly_db import *
 from srim_page.models import Stock
+from scripts.quarterly_db import *
+
+
+naver_report = pd.read_hdf('naver.hdf', key='df')
+fnguide_df = pd.read_hdf('fnguide.hdf', key='df')
 
 #### 3. 위의 DB를 활용해서 뽑아내는 함수
 
@@ -70,17 +74,22 @@ def naver_equity(stock_code):
     return equity
 
 
-# 3년 가중평균 roe 값 구하는 함수
-def roe_3(stock_code):
-    if naver_df(stock_code)['ROE(%)']['2020(IFRS연결)'] != 0:
-        roe_1st = naver_df(stock_code)['ROE(%)']['2020(IFRS연결)']
-        roe_2nd = naver_df(stock_code)['ROE(%)']['2019(IFRS연결)']
-        roe_3rd = naver_df(stock_code)['ROE(%)']['2018(IFRS연결)']
+# roe 구하는 함수
+def roe(stock_code, year):
+    if naver_df(stock_code)['ROE(%)'][year + '(IFRS연결)'] != 0:
+        roe_result = naver_df(stock_code)['ROE(%)'][year + '(IFRS연결)']
 
     else:
-        roe_1st = naver_df(stock_code)['ROE(%)']['2020(IFRS별도)']
-        roe_2nd = naver_df(stock_code)['ROE(%)']['2019(IFRS별도)']
-        roe_3rd = naver_df(stock_code)['ROE(%)']['2018(IFRS별도)']
+        roe_result = naver_df(stock_code)['ROE(%)'][year + '(IFRS별도)']
+
+    return roe_result
+
+
+# 3년 가중평균 roe 값 구하는 함수
+def roe_3(stock_code):
+    roe_1st = roe(stock_code, '2020')
+    roe_2nd = roe(stock_code, '2019')
+    roe_3rd = roe(stock_code, '2018')
 
     # 가중평균 중 나누기 값을 구하기 위함, 만약 3년전 roe 값 0이라면 가중치를 0으로 둬야하기 때문
     roe_list = [roe_1st, roe_2nd, roe_3rd]
@@ -226,29 +235,45 @@ def risk(stock_code):
 
 # 실행하는 함수
 def run():
-    x, _ = Stock.objects.filter(created_at__lte=datetime.date.today() - timedelta(days=1)).delete()
-    print(x, 'stock deleted')
+    # x, _ = Stock.objects.filter(created_at__lte=datetime.date.today() - timedelta(days=1)).delete()
+    # print(x, 'stock deleted')
 
-    for row in range(0, len(stock_df)): #len(stock_df)
+    for row in range(0, 100): #len(stock_df)
         try:
             stock_code = stock_df.index[row]
             name = stock_name(stock_code)
             sector = stock_sector(stock_code)
             current_price = stock_price(stock_code)
+
             srim_price = srim(stock_code, 1)
             srim10_price = srim(stock_code, 0.9)
             srim20_price = srim(stock_code, 0.8)
-            roe = roe_3(stock_code).round(2)
+
+            roe_average = roe_3(stock_code).round(2)
+            roe_2020 = roe(stock_code, '2020').round(2)
+            roe_2019 = roe(stock_code, '2019').round(2)
+            roe_2018 = roe(stock_code, '2018').round(2)
+            bbb_rate = bbb()
+
             gap = round(gap_(stock_code), 2)
             risky = risk(stock_code)
+            risky_revenue = risk_revenue(stock_code)
+            risky_profit = risk_profit(stock_code)
+            risky_ebitda = risk_ebitda(stock_code)
+            risky_capital = risk_capital(stock_code)
 
             # 3년 가중평균 roe가 bbb- 값보다 높은 경우만 출력
-            if roe > bbb():
+            if roe_average > bbb():
                 if Stock.objects.filter(code=stock_code).count() == 0:
                     Stock(code=stock_code, name=name, sector=sector, current_price=current_price, srim_price=srim_price,
-                          srim10_price=srim10_price, srim20_price=srim20_price, roe=roe, gap=gap, risky=risky).save()
+                          srim10_price=srim10_price, srim20_price=srim20_price, roe_average=roe_average, roe_2020=roe_2020, roe_2019=roe_2019, roe_2018=roe_2018, bbb_rate=bbb_rate,
+                          gap=gap, risky=risky, risky_revenue=risky_revenue, risky_profit=risky_profit, risky_ebitda=risky_ebitda, risky_capital=risky_capital).save()
+                else:
+                    queryset = Stock.objects.all()
+                    queryset.update(current_price=current_price, srim_price=srim_price, srim10_price=srim10_price, srim20_price=srim20_price, bbb_rate=bbb_rate, gap=gap)
 
-        except:
+        except Exception as e:
+            print(e)
             print(row)
             pass
 

@@ -98,3 +98,6 @@ stock_df = krx_stock_df.join(krx_sector_df['업종명'], on='종목코드')
 
 # 필요항목(열)만 추출
 stock_df = stock_df.loc[:, ['종목명', '시장구분', '업종명', '종가', '상장주식수']]
+
+# 결측치 대체
+stock_df = stock_df.fillna('해당없음')
