@@ -12,5 +12,11 @@ class StockList(ListView):
 class StockDetail(DetailView):
     model = Stock
 
+    def lineChart(request):
+        return JsonResponse(data={
+            'labels': ["Red Label", "Yellow Label"],
+            'data': [5, 6],
+        })
+
 
 

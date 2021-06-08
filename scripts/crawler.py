@@ -1,9 +1,9 @@
 from srim_page.models import Stock
 from scripts.quarterly_db import *
 
-
 naver_report = pd.read_hdf('naver.hdf', key='df')
 fnguide_df = pd.read_hdf('fnguide.hdf', key='df')
+
 
 #### 3. 위의 DB를 활용해서 뽑아내는 함수
 
@@ -99,8 +99,10 @@ def roe_3(stock_code):
             count_list.append(-(count - 3))
         else:
             count_list.append(0)
-
-    roe_average = ((roe_1st * 3) + (roe_2nd * 2) + (roe_3rd * 1)) / (count_list[0] + count_list[1] + count_list[2])
+    try:
+        roe_average = ((roe_1st * 3) + (roe_2nd * 2) + (roe_3rd * 1)) / (count_list[0] + count_list[1] + count_list[2])
+    except:
+        roe_average = 0
 
     return roe_average
 
@@ -238,7 +240,7 @@ def run():
     # x, _ = Stock.objects.filter(created_at__lte=datetime.date.today() - timedelta(days=1)).delete()
     # print(x, 'stock deleted')
 
-    for row in range(0, 100): #len(stock_df)
+    for row in range(0, 40):  # len(stock_df)
         try:
             stock_code = stock_df.index[row]
             name = stock_name(stock_code)
@@ -249,10 +251,10 @@ def run():
             srim10_price = srim(stock_code, 0.9)
             srim20_price = srim(stock_code, 0.8)
 
-            roe_average = roe_3(stock_code).round(2)
-            roe_2020 = roe(stock_code, '2020').round(2)
-            roe_2019 = roe(stock_code, '2019').round(2)
-            roe_2018 = roe(stock_code, '2018').round(2)
+            roe_average = round(roe_3(stock_code), 2)
+            roe_2020 = round(roe(stock_code, '2020'), 2)
+            roe_2019 = round(roe(stock_code, '2019'), 2)
+            roe_2018 = round(roe(stock_code, '2018'), 2)
             bbb_rate = bbb()
 
             gap = round(gap_(stock_code), 2)
@@ -266,15 +268,16 @@ def run():
             if roe_average > bbb():
                 if Stock.objects.filter(code=stock_code).count() == 0:
                     Stock(code=stock_code, name=name, sector=sector, current_price=current_price, srim_price=srim_price,
-                          srim10_price=srim10_price, srim20_price=srim20_price, roe_average=roe_average, roe_2020=roe_2020, roe_2019=roe_2019, roe_2018=roe_2018, bbb_rate=bbb_rate,
-                          gap=gap, risky=risky, risky_revenue=risky_revenue, risky_profit=risky_profit, risky_ebitda=risky_ebitda, risky_capital=risky_capital).save()
+                          srim10_price=srim10_price, srim20_price=srim20_price, roe_average=roe_average,
+                          roe_2020=roe_2020, roe_2019=roe_2019, roe_2018=roe_2018, bbb_rate=bbb_rate,
+                          gap=gap, risky=risky, risky_revenue=risky_revenue, risky_profit=risky_profit,
+                          risky_ebitda=risky_ebitda, risky_capital=risky_capital).save()
                 else:
-                    queryset = Stock.objects.all()
-                    queryset.update(current_price=current_price, srim_price=srim_price, srim10_price=srim10_price, srim20_price=srim20_price, bbb_rate=bbb_rate, gap=gap)
+                    queryset = Stock.objects.filter(code=stock_code)
+                    queryset.update(current_price=current_price, srim_price=srim_price, srim10_price=srim10_price,
+                                    srim20_price=srim20_price, bbb_rate=bbb_rate, gap=gap)
 
         except Exception as e:
             print(e)
             print(row)
             pass
-
-

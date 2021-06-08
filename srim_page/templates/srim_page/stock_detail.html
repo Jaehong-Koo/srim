@@ -25,6 +25,7 @@
                     </div>
                 </div>
                 <h2>{{ stock.name }}</h2>
+                <hr/>
                 <div class="row">
                     <!-- [ Top-card-section ] start-->
                     <div class="col-md-6 col-xl-4">
@@ -59,9 +60,12 @@
                     </div>
                     <!-- [ Top-card-section ] end-->
                 </div>
-                <row>
+                <div class="row">
                     <div class="col-md-6 col-xl-4">
                         <div class="card">
+                            <div class="card-header">
+                                <h5>상세 사항</h5>
+                            </div>
                             <div class="card-block table-border-style">
                                 <div class="table-responsive">
                                     <table id="tables" class="table table-hover">
@@ -81,25 +85,66 @@
                                             <td>{{ stock.sector }}</td>
                                         </tr>
                                         <tr>
+                                            <td>SRIM</td>
+                                            <td>{{ stock.srim_price|intcomma }}원</td>
+                                        </tr>
+                                        <tr>
                                             <td>SRIM(10%)</td>
-                                            <td>{{ stock.srim10_price }}</td>
+                                            <td>{{ stock.srim10_price|intcomma }}원</td>
                                         </tr>
                                         <tr>
                                             <td>SRIM(20%)</td>
-                                            <td>{{ stock.srim20_price }}</td>
+                                            <td>{{ stock.srim20_price|intcomma }}원</td>
                                         </tr>
                                         <tr>
                                             <td>3년 가중평균 ROE</td>
-                                            <td>{{ stock.roe }}</td>
+                                            <td>{{ stock.roe_average }}%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ROE(2020)</td>
+                                            <td>{{ stock.roe_2020 }}%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ROE(2019)</td>
+                                            <td>{{ stock.roe_2019 }}%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ROE(2018)</td>
+                                            <td>{{ stock.roe_2018 }}%</td>
                                         </tr>
                                         <tr>
                                             <td>상장폐지 위험여부</td>
                                             <td>{{ stock.risky }}</td>
                                         </tr>
-
+                                        <tr>
+                                            <td>매출액 위험</td>
+                                            <td>{{ stock.risky_revenue }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>장기간영업손실</td>
+                                            <td>{{ stock.risky_profit }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>법인세비용차감전계속사업손실</td>
+                                            <td>{{ stock.risky_ebitda }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>자본잠식 위험</td>
+                                            <td>{{ stock.risky_capital }}</td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Bar Chart</h5>
+                            </div>
+                            <div class="card-block">
+                                <canvas id="myChart"></canvas>
                             </div>
                         </div>
                     </div>
