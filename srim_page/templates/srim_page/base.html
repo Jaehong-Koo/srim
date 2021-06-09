@@ -71,27 +71,90 @@
 <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
 <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/export/bootstrap-table-export.min.js"></script>
 <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/multiple-sort/bootstrap-table-multiple-sort.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.3.2/dist/chart.min.js"></script>
+
+<!--<script>-->
+<!--  $(document).ready(function(){-->
+<!--    var ctx = document.getElementById('myChart').getContext('2d');-->
+<!--    var myChart = new Chart(ctx, {-->
+<!--      type: 'bar',-->
+<!--      data: {-->
+<!--          labels: ['S-RIM 가격', 'S-RIM 가격(10%)', 'SRIM 가격(20%)'],-->
+<!--          datasets: [{-->
+<!--              label: '가격',-->
+<!--              data: [{{ stock.srim_price }}, {{ stock.srim10_price }}, {{ stock.srim20_price }}],-->
+<!--              backgroundColor: [-->
+<!--                  'rgba(54, 162, 235, 0.2)',-->
+<!--                  'rgba(54, 162, 235, 0.2)',-->
+<!--                  'rgba(54, 162, 235, 0.2)'-->
+<!--              ],-->
+<!--              borderColor: [-->
+<!--                  'rgba(54, 162, 235, 1)',-->
+<!--                  'rgba(54, 162, 235, 1)',-->
+<!--                  'rgba(54, 162, 235, 1)'-->
+<!--              ],-->
+<!--              borderWidth: 1-->
+<!--          }]-->
+<!--      },-->
+<!--      options: {-->
+<!--          scales: {-->
+<!--              y: {-->
+<!--                  beginAtZero: true-->
+<!--              }-->
+<!--          }-->
+<!--      }-->
+<!--    });-->
+<!--  });-->
+<!--</script>-->
 
 <script>
-  var ctx = document.getElementById('myChart').getContext('2d');
-  var chart = new Chart(ctx, {
-  // The type of chart we want to create
-    type: 'bar',
-  // The data for our dataset
-    data: { labels: ['January', 'February', 'March'],
-    datasets: [{
-      label: 'My First dataset',
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgb(255, 99, 132)',
-      data: [7, 10, 5]
-    }]
-  },
-
-  // Configuration options go here
-  options: {}
+  $(document).ready(function(){
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      data: {
+          labels: ['S-RIM 가격', 'S-RIM 가격(10%)', 'SRIM 가격(20%)'],
+          datasets: [{
+              type: 'bar',
+              label: 'SRIM 가격',
+              data: [{{ stock.srim_price }}, {{ stock.srim10_price }}, {{ stock.srim20_price }}],
+              backgroundColor: [
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(54, 162, 235, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(54, 162, 235, 1)'
+              ],
+              borderWidth: 1
+          }, {
+             type: 'line',
+             label: '현재가격',
+             data: [{{ stock.current_price }}, {{ stock.current_price }}, {{ stock.current_price }}],
+             backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(255, 99, 132, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(255, 99, 132, 1)'
+              ],
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+    });
   });
 </script>
+
 
 
 <script>
