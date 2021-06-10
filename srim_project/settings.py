@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'srim_page', # srim페이지
+    'srim_page', # srim 앱페이지
     'django_extensions', # 크롤링 scripts 작동위함
     'django.contrib.humanize', # 3자릿수 콤마
 ]

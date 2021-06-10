@@ -1,5 +1,47 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.utils.timezone import now
+
+
+class Intro(models.Model):
+    title = models.CharField(max_length=28)
+    content = models.TextField()
+    hook_text = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+
+    def __str__(self):
+        return f'[{self.pk}]{self.title} :: {self.author}'
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=28, unique=True)
+    slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return f'/category/{self.slug}/'
+
+    class Meta:
+        verbose_name_plural = 'Categories'
+
+
+class About(models.Model):
+    title = models.CharField(max_length=28)
+    content = models.TextField()
+    hook_text = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
+
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+
+    def __str__(self):
+        return f'[{self.pk}]{self.title} :: {self.author}'
 
 
 class Stock(models.Model):
@@ -33,7 +75,7 @@ class Stock(models.Model):
         return f'[{self.pk}]{self.name}'
 
     def get_absolute_url(self):
-        return '/{}/'.format(self.pk)
+        return '/srim/{}/'.format(self.pk)
 
 
 

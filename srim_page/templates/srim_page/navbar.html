@@ -6,7 +6,7 @@
                 <div class="b-bg">
                     <i class="feather icon-trending-up"></i>
                 </div>
-                <span class="b-title">S-RIM 사이트</span>
+                <span class="b-title">S-RIM 사이트(가제)</span>
             </a>
             <a class="mobile-menu" id="mobile-collapse" href="javascript:"><span></span></a>
         </div>
@@ -28,8 +28,9 @@
                         <span class="pcoded-mtext">About S-RIM</span>
                     </a>
                     <ul class="pcoded-submenu">
-                        <li class=""><a href="/ui-button.html" class="">홈페이지 구성</a></li>
-                        <li class=""><a href="/ui-badges.html" class="">적정 가치 계산 방법</a></li>
+                        {% for category in categories %}
+                        <li class=""><a href="{{ category.get_absolute_url }}" class="">{{ category }}</a></li>
+                        {% endfor %}
                     </ul>
                 </li>
 
@@ -43,7 +44,7 @@
                     </a>
                     <ul class="pcoded-submenu">
                         <li class=""><a href="/ui-button.html" class="">개별 검색</a></li>
-                        <li class=""><a href="/ui-badges.html" class="">종목 리스트</a></li>
+                        <li class=""><a href="/srim/" class="">종목 리스트</a></li>
                     </ul>
                 </li>
 
