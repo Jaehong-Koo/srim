@@ -1,3 +1,5 @@
+{% load socialaccount %}
+
 <nav class="pcoded-navbar">
     <div class="navbar-wrapper">
         <div class="navbar-brand header-logo">
@@ -10,27 +12,37 @@
             </a>
             <a class="mobile-menu" id="mobile-collapse" href="javascript:"><span></span></a>
         </div>
+
         <div class="navbar-content scroll-div">
             <ul class="nav pcoded-inner-navbar">
+                <li class="nav-item">
+                    <div class="form-inline" role="search">
+                        <input class="search js-search form-control form-control-rounded mr-sm-2" id="search-input" onkeyup="wait_for_enterkey();" type="text" title="검색어를 입력하세요" placeholder="종목코드 또는 종목명 입력">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn-sm btn-light" onclick="searchStock();">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </li>
+
                 <li class="nav-item pcoded-menu-caption">
                     <label>소개</label>
                 </li>
 
-                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
-                    class="nav-item ">
+                <li class="nav-item">
                     <a href="/" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span>
                         <span class="pcoded-mtext">Home</span>
                     </a>
                 </li>
 
-                <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
+                <li class="nav-item pcoded-hasmenu">
                     <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file-text"></i></span>
                         <span class="pcoded-mtext">About S-RIM</span>
                     </a>
                     <ul class="pcoded-submenu">
-                        {% for category in categories %}
-                        <li class=""><a href="{{ category.get_absolute_url }}" class="">{{ category }}</a></li>
-                        {% endfor %}
+                        <li class=""><a href="/about_page/" class="">홈페이지 이용안내</a></li>
+                        <li class=""><a href="/about_srim/" class="">적정가치 계산방법/원리</a></li>
                     </ul>
                 </li>
 
@@ -38,24 +50,25 @@
                     <label>종목검색기</label>
                 </li>
 
-                <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
-                    <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-server"></i></span>
-                        <span class="pcoded-mtext">S-RIM 종목</span>
+                <li class="nav-item">
+                    <a href="/srim/" class="nav-link "><span class="pcoded-micon"><i class="feather icon-server"></i></span>
+                        <span class="pcoded-mtext">S-RIM 종목 리스트</span>
                     </a>
-                    <ul class="pcoded-submenu">
-                        <li class=""><a href="/ui-button.html" class="">개별 검색</a></li>
-                        <li class=""><a href="/srim/" class="">종목 리스트</a></li>
-                    </ul>
                 </li>
 
-                <li data-username="Authentication Sign up Sign in reset password Change password Personal information profile settings map form subscribe" class="nav-item pcoded-hasmenu">
-                    <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-lock"></i></span><span class="pcoded-mtext">로그인</span></a>
-                    <ul class="pcoded-submenu">
-                        <li class=""><a href="/login.html" class="">로그인</a></li>
-                        <li class=""><a href="/register.html" class="">로그아웃</a></li>
-                    </ul>
+                <li class="nav-item pcoded-menu-caption">
+                    <label>개인정보</label>
                 </li>
+
+
+                <li class="nav-item">
+                    <a href="/login/" class="nav-link "><span class="pcoded-micon"><i class="feather icon-lock"></i></span>
+                        <span class="pcoded-mtext">로그인</span>
+                    </a>
+                </li>
+                
             </ul>
         </div>
     </div>
 </nav>
+

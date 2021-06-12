@@ -5,14 +5,9 @@
 
 <head>
     <title>
-        S-RIM 홈페이지
+        S-RIM페이지(가제)
     </title>
-    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 10]>
-		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>-->
-    <!--		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>-->
-    <!--		<![endif]&ndash;&gt;-->
+
     <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -41,7 +36,6 @@
 </head>
 
 <body>
-
 <!-- [ Pre-loader ] start -->
 <div class="loader-bg">
     <div class="loader-track">
@@ -60,6 +54,7 @@
 {% block main_area %}
 {% endblock %}
 
+
 <!-- Required Js -->
 <script src="{% static 'srim_page/assets/js/vendor-all.min.js' %}"></script>
 <script src="{% static 'srim_page/assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
@@ -73,39 +68,25 @@
 <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/multiple-sort/bootstrap-table-multiple-sort.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.3.2/dist/chart.min.js"></script>
 
-<!--<script>-->
-<!--  $(document).ready(function(){-->
-<!--    var ctx = document.getElementById('myChart').getContext('2d');-->
-<!--    var myChart = new Chart(ctx, {-->
-<!--      type: 'bar',-->
-<!--      data: {-->
-<!--          labels: ['S-RIM 가격', 'S-RIM 가격(10%)', 'SRIM 가격(20%)'],-->
-<!--          datasets: [{-->
-<!--              label: '가격',-->
-<!--              data: [{{ stock.srim_price }}, {{ stock.srim10_price }}, {{ stock.srim20_price }}],-->
-<!--              backgroundColor: [-->
-<!--                  'rgba(54, 162, 235, 0.2)',-->
-<!--                  'rgba(54, 162, 235, 0.2)',-->
-<!--                  'rgba(54, 162, 235, 0.2)'-->
-<!--              ],-->
-<!--              borderColor: [-->
-<!--                  'rgba(54, 162, 235, 1)',-->
-<!--                  'rgba(54, 162, 235, 1)',-->
-<!--                  'rgba(54, 162, 235, 1)'-->
-<!--              ],-->
-<!--              borderWidth: 1-->
-<!--          }]-->
-<!--      },-->
-<!--      options: {-->
-<!--          scales: {-->
-<!--              y: {-->
-<!--                  beginAtZero: true-->
-<!--              }-->
-<!--          }-->
-<!--      }-->
-<!--    });-->
-<!--  });-->
-<!--</script>-->
+
+<script>
+  function searchStock(){
+      var searchValue = document.getElementById('search-input').value.trim();
+      if (searchValue.length > 1){
+          location.href="/search/" + searchValue + "/";
+      }
+      else{
+          alert('검색어('+ searchValue +')가 너무 짧습니다.');
+      }
+  }
+
+  function wait_for_enterkey(){
+      if (window.event.keyCode == 13){
+          searchStock();
+      }
+  }
+</script>
+
 
 <script>
   $(document).ready(function(){

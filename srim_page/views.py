@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from django.views.generic import ListView, DetailView, TemplateView
-from .models import Stock, Intro, About, Category
+from .models import Stock, Intro, About_Page, About_Srim
+from django.db.models import Q
 
 
 def intro_page(request):
@@ -16,25 +17,24 @@ def intro_page(request):
     )
 
 
-def category_page(request, slug):
-    if slug == 'no_category':
-        category = '미분류'
-        about_list = About.objects.filter(category=None).order_by('-created_at')
-
-    else:
-        category = Category.objects.get(slug=slug)
-        about_list = About.objects.filter(category=category).order_by('-created_at')
+def search_page(request):
+    stock = Stock.objects.all()
 
     return render(
         request,
-        'srim_page/about_list.html',
+        'srim_page/stock_detail.html',
         {
-            'about_list': about_list,
-            'categories': Category.objects.all(),
-            'no_category_about_count': About.objects.filter(category=None).count(),
-            'category': category,
+            'stock': stock,
         }
     )
+
+
+class About_PageList(ListView):
+    model = About_Page
+
+
+class About_SrimList(ListView):
+    model = About_Srim
 
 
 class StockList(ListView):
@@ -56,5 +56,23 @@ class StockChartView(TemplateView):
         context["stock"] = Stock
 
         return context
+
+
+class StockSearch(StockList):
+
+    def get_queryset(self):
+        q = self.kwargs['q']
+        stock_list = Stock.objects.filter(
+            Q(name__contains=q) | Q(code__contains=q)
+        ).order_by('-created_at').distinct()
+
+        return stock_list
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(StockSearch, self).get_context_data()
+    #     q = self.kwargs['q']
+    #     context['search_info'] = f'검색 결과 : {q}'
+    #
+    #     return context
 
 

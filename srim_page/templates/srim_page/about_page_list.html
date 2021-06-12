@@ -1,6 +1,5 @@
 {% extends 'srim_page/base.html' %}
 {% load static %}
-{% load humanize %}
 {% block main_area %}
 
 <div class="pcoded-main-container">
@@ -13,25 +12,29 @@
                         <div class="row align-items-center">
                             <div class="col-md-12">
                                 <div class="page-header-title">
-                                    <h5 class="m-b-10">Home</h5>
+                                    <h5 class="m-b-10">홈페이지 이용안내</h5>
                                 </div>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                                    <li class="breadcrumb-item"><a href="/">소개</a></li>
+                                    <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                                    <li class="breadcrumb-item">About S-RIM</li>
+                                    <li class="breadcrumb-item"><a href="/about_page/">홈페이지 이용안내</a></li>
                                 </ul>
                                 <div class="main-body">
                                     <div class="page-wrapper">
                                         <!-- [ Main Content ] start -->
-                                        {% for about in about_list %}
+                                        {% for about_page in about_page_list %}
                                         <div class="row">
                                             <div class="col-xl-12">
                                                 <div class="card">
-                                                    <div class="card-header">
-                                                        <h5>{{ about.title }}</h5>
+                                                    <div class="card-header" id="{{ about_page.title }}">
+                                                        <h5 class="mb-0">
+                                                            <a href="#!" data-toggle="collapse" data-target="#{{ about_page.pk }}" aria-expanded="true" aria-controls="{{ about_page.pk }}">
+                                                                {{ about_page.title }}
+                                                            </a>
+                                                        </h5>
                                                     </div>
-                                                    <div class="card-block">
-                                                        {{ about.category }}
-                                                        {{ about.content }}
+                                                    <div id="{{ about_page.pk }}" class="card-body collapse" aria-labelledby="{{ about_page.pk }}" data-parent="#accordionExample">
+                                                        {{ about_page.content }}
                                                     </div>
                                                 </div>
                                             </div>

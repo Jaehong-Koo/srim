@@ -16,7 +16,7 @@
                                 </div>
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><i class="feather icon-server"></i></li>
-                                    <li class="breadcrumb-item">종목 검색기</li>
+                                    <li class="breadcrumb-item">S-RIM 종목</li>
                                     <li class="breadcrumb-item"><a href="/srim/">종목 리스트</a></li>
                                 </ul>
                             </div>
@@ -57,6 +57,7 @@
                                                 <thead>
                                                 <tr>
                                                     <th data-field="state" data-checkbox="true"></th>
+                                                    <th data-field="{{ stock.get_absolute_url }}" data-formatter="LinkFormatter">링크</th>
                                                     <th data-field="종목코드">종목코드</th>
                                                     <th data-field="종목명">종목명</th>
                                                     <th data-field="섹터" data-sortable="true">섹터</th>
@@ -68,13 +69,13 @@
                                                     <th data-field="가중평균ROE(3년)" data-sortable="true">가중평균ROE%(3년)</th>
                                                     <th data-field="상장폐지 위험여부" data-sortable="true">상장폐지 위험여부</th>
                                                     <th data-sortable="true">데이터 생성일</th>
-                                                    <th data-field="{{ stock.get_absolute_url }}" data-formatter="LinkFormatter">링크</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 {% for stock in stock_list %}
                                                 <tr>
                                                     <td></td>
+                                                    <td>{{ stock.get_absolute_url }}</td>
                                                     <td>{{ stock.code }}</td>
                                                     <td>{{ stock.name }}</td>
                                                     <td>{{ stock.sector }}</td>
@@ -86,7 +87,6 @@
                                                     <td>{{ stock.roe_average }}</td>
                                                     <td>{{ stock.risky }}</td>
                                                     <td>{{ stock.created_at }}</td>
-                                                    <td>{{ stock.get_absolute_url }}</td>
                                                 </tr>
                                                 {% endfor %}
                                                 </tbody>

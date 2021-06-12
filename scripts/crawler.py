@@ -240,7 +240,7 @@ def run():
     # x, _ = Stock.objects.filter(created_at__lte=datetime.date.today() - timedelta(days=1)).delete()
     # print(x, 'stock deleted')
 
-    for row in range(0, 40):  # len(stock_df)
+    for row in range(0, 100):  # len(stock_df)
         try:
             stock_code = stock_df.index[row]
             name = stock_name(stock_code)
