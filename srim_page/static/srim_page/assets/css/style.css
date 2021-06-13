@@ -57,6 +57,46 @@ File: style.css
 /**  =====================
       Custom css start
 ==========================  **/
+.btn-kakao {
+    background-color: #F7E600;
+    border-color: #F7E600;
+    color: #3A1D1D; }
+.btn-kakao:hover {
+    background-color: #F7E600;
+    border-color: #F7E600;
+    color: #3A1D1D;
+}
+.btn-kakao:active,
+.btn-kakao:visited,
+.btn-kakao:active:focus,
+.btn-kakao:active:hover {
+    border-color: #F7E600;
+    background-color: #F7E600;
+    color: #3A1D1D; }
+
+.btn-google {
+    color:#fff;
+    background-color:#ff0039;
+    border-color:#ff0039; }
+
+
+.btn-google:hover {
+    color: #fff;
+    background-color:#d90030;
+    border-color:#cc002e; }
+
+
+.btn-like{
+    display: inline-block;
+    width: 16px
+    height: 16px;
+    overflow: hidden;
+    border: none;
+}
+
+
+
+
 body {
   font-family: "Open Sans", sans-serif;
   font-size: 14px;

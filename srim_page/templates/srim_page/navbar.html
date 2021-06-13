@@ -57,16 +57,28 @@
                 </li>
 
                 <li class="nav-item pcoded-menu-caption">
-                    <label>개인정보</label>
+                    <label>개인</label>
                 </li>
 
+                {% if user.is_authenticated %}
+                <li class="nav-item pcoded-hasmenu">
+                    <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-lock"></i></span>
+                        <span class="pcoded-mtext">{{ user.username }}님 페이지</span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class=""><a href="/about_page/" class="">찜목록</a></li>
+                        <li class=""><a href="/accounts/logout/" class="">로그아웃</a></li>
+                    </ul>
+                </li>
 
+                {% else %}
                 <li class="nav-item">
                     <a href="/login/" class="nav-link "><span class="pcoded-micon"><i class="feather icon-lock"></i></span>
                         <span class="pcoded-mtext">로그인</span>
                     </a>
                 </li>
-                
+                {% endif %}
+
             </ul>
         </div>
     </div>

@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import JsonResponse
-from django.views.generic import ListView, DetailView, TemplateView
+from django.http import HttpResponseForbidden, HttpResponseRedirect
+from urllib.parse import urlparse
+from django.views.generic import View, ListView, DetailView, TemplateView
 from .models import Stock, Intro, About_Page, About_Srim
 from django.db.models import Q
 
 
+# Home page(intro)
 def intro_page(request):
     intro_list = Intro.objects.all()
 
@@ -17,22 +19,12 @@ def intro_page(request):
     )
 
 
-def search_page(request):
-    stock = Stock.objects.all()
-
-    return render(
-        request,
-        'srim_page/stock_detail.html',
-        {
-            'stock': stock,
-        }
-    )
-
-
+# About page(about this website)
 class About_PageList(ListView):
     model = About_Page
 
 
+# About page(about srim)
 class About_SrimList(ListView):
     model = About_Srim
 
@@ -75,4 +67,49 @@ class StockSearch(StockList):
     #
     #     return context
 
+
+def login_page(request):
+
+    return render(
+        request,
+        'srim_page/login.html',
+        {
+
+        }
+    )
+
+
+# class StockLike(View):
+#     def get(self, request, *args, **kwargs):
+#         if not request.user.is_authenticated:
+#             return HttpResponseForbidden
+#         else:
+#             if 'stock_id' in kwargs:
+#                 stock_id = kwargs['stock_id']
+#                 stock = Stock.objects.get(pk=stock_id)
+#                 user = request.user
+#                 if user in stock.like.all():
+#                     stock.like.remover(user)
+#                 else:
+#                     stock.like.add(user)
+#             referel_url = request.META.get('HTTP_REFERER')
+#             path = urlparse(referel_url).path
+#             return HttpResponseRedirect(path)
+
+
+# class StockLikeList(ListView):
+#     model = Stock
+#     template_name = 'srim_page/stock_list.html'
+#
+#     def dispatch(self, request, *args, **kwargs):
+#         if not request.user.is_authenticated:
+#             messages.warning(request, '로그인이 필요합니다')
+#             return HttpResponseRedirect('/')
+#
+#         return super(StockLikeList, self).dispatch(request, *args, **kwargs)
+#
+#     def get_queryset(self):
+#         user = self.request.user
+#         queryset = user.like_post.all()
+#         return queryset
 

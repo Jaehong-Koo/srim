@@ -69,6 +69,9 @@ class Stock(models.Model):
     created_at = models.DateTimeField(default=now)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
+    # add like function
+    like = models.ManyToManyField(User, related_name='like_stock', blank=True)
+
 
     def __str__(self):
         return f'[{self.pk}]{self.name}'
