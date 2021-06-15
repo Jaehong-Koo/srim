@@ -69,6 +69,12 @@ class Stock(models.Model):
     created_at = models.DateTimeField(default=now)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    likes = models.ManyToManyField(User, related_name='stock_like')
+
+    def total_likes(self):
+        return self.likes.count()
+
 
     def __str__(self):
         return f'[{self.pk}]{self.name}'

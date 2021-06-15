@@ -25,6 +25,10 @@
                     </div>
                 </div>
                 <h2>{{ stock.name }}</h2>
+                <form action="{% url 'like_stock' stock.pk %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit", name="stock_id", value="{{ stock.id }}", class="btn btn-primary btn-sm">Like</button> - {{ total_likes }}
+                </form>
                 <hr/>
                 <div class="row">
                     <!-- [ Top-card-section ] start-->
