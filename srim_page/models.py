@@ -76,6 +76,7 @@ class Stock(models.Model):
         return self.likes.count()
 
 
+
     def __str__(self):
         return f'[{self.pk}]{self.name}'
 
