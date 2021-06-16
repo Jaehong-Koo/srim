@@ -1,17 +1,25 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseForbidden, HttpResponseRedirect
 from urllib.parse import urlparse
 from django.views.generic import View, ListView, DetailView, TemplateView
-from .models import Stock, Intro, About_Page, About_Srim
+from .models import Stock, Intro, About_Page, About_Srim, User
 from django.db.models import Q
-from django.http import HttpResponseRedirect
+import json
+from django.http import HttpResponse, JsonResponse
 from django.urls import reverse_lazy, reverse
 
 
-def LikeView(request, pk):
-    stock = get_object_or_404(Stock, id=request.POST.get('stock_id'))
-    stock.likes.add(request.user)
-    return HttpResponseRedirect(reverse('stock-detail', args=[str(pk)]))
+def like(request, pk):
+    stock = get_object_or_404(Stock, id=pk)
+
+    if request.user in stock.like_users.all():
+        stock.like_users.remove(request.user)
+    else:
+        stock.like_users.add(request.user)
+
+    return redirect('stock:detail', pk=pk)
+
+
 
 
 def login_page(request):
@@ -55,12 +63,12 @@ class StockList(ListView):
 class StockDetail(DetailView):
     model = Stock
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(StockDetail, self).get_context_data()
-        stuff = get_object_or_404(Stock, id=self.kwargs['pk'])
-        total_likes = stuff.total_likes()
-        context["total_likes"] = total_likes
-        return context
+    # def get_context_data(self, *args, **kwargs):
+    #     context = super(StockDetail, self).get_context_data()
+    #     stuff = get_object_or_404(Stock, id=self.kwargs['pk'])
+    #     total_likes = stuff.total_likes()
+    #     context["total_likes"] = total_likes
+    #     return context
 
 
 class StockChartView(TemplateView):
@@ -91,40 +99,4 @@ class StockSearch(StockList):
     #     context['search_info'] = f'검색 결과 : {q}'
     #
     #     return context
-
-
-
-# class StockLike(View):
-#     def get(self, request, *args, **kwargs):
-#         if not request.user.is_authenticated:
-#             return HttpResponseForbidden
-#         else:
-#             if 'stock_id' in kwargs:
-#                 stock_id = kwargs['stock_id']
-#                 stock = Stock.objects.get(pk=stock_id)
-#                 user = request.user
-#                 if user in stock.like.all():
-#                     stock.like.remover(user)
-#                 else:
-#                     stock.like.add(user)
-#             referel_url = request.META.get('HTTP_REFERER')
-#             path = urlparse(referel_url).path
-#             return HttpResponseRedirect(path)
-
-
-# class StockLikeList(ListView):
-#     model = Stock
-#     template_name = 'srim_page/stock_list.html'
-#
-#     def dispatch(self, request, *args, **kwargs):
-#         if not request.user.is_authenticated:
-#             messages.warning(request, '로그인이 필요합니다')
-#             return HttpResponseRedirect('/')
-#
-#         return super(StockLikeList, self).dispatch(request, *args, **kwargs)
-#
-#     def get_queryset(self):
-#         user = self.request.user
-#         queryset = user.like_post.all()
-#         return queryset
 

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
+from django.conf import settings
 
 
 class Intro(models.Model):
@@ -70,10 +71,8 @@ class Stock(models.Model):
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    likes = models.ManyToManyField(User, related_name='stock_like')
-
-    def total_likes(self):
-        return self.likes.count()
+    like = models.ManyToManyField(User, related_name='likes', blank=True)
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_stock')
 
 
 

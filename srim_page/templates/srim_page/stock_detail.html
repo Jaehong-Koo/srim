@@ -25,10 +25,19 @@
                     </div>
                 </div>
                 <h2>{{ stock.name }}</h2>
-                <form action="{% url 'like_stock' stock.pk %}" method="POST">
-                    {% csrf_token %}
-                    <button type="submit", name="stock_id", value="{{ stock.id }}", class="btn btn-primary btn-sm">Like</button> - {{ total_likes }}
-                </form>
+
+                <p style="color: #CDCDCD">
+                    좋아요 : <a href="{% url 'stock:like' stock.id %}"></a>
+                    {% if user in stock.like_users.all %}
+                        <a href="{% url 'stock:like' stock.id %}"><i class="fas fa-heart"></i></a>
+                    {% else %}
+                        <a href="{% url 'stock:like' stock.id %}"><i class="far fa-heart"></i></a>
+                    {% endif %}
+
+                    {{ stock.like_users.count }}
+                </p>
+
+
                 <hr/>
                 <div class="row">
                     <!-- [ Top-card-section ] start-->
@@ -158,4 +167,6 @@
         </div>
     </div>
 </div>
+
+
 {% endblock %}
