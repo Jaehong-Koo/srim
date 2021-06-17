@@ -100,7 +100,7 @@ File: style.css
 body {
   font-family: "Open Sans", sans-serif;
   font-size: 14px;
-  color: #888;
+  color: #000000;
   font-weight: 400;
   background: #f4f7fa;
   position: relative;
@@ -7316,12 +7316,12 @@ select.form-control-lg:not([size]):not([multiple]) {
 ==========================  **/
 .table td,
 .table th {
-  border-top: 1px solid #eaeaea;
+  border-top: 0.5px solid #000000;
   white-space: nowrap;
   padding: 1.05rem 0.75rem;
 }
 .table thead th {
-  border-bottom: 1px solid #eaeaea;
+  border-bottom: 1px solid #000000;
 }
 .table tbody + tbody {
   border-top: 2px solid #eaeaea;
@@ -7333,7 +7333,8 @@ select.form-control-lg:not([size]):not([multiple]) {
 }
 .table-bordered td,
 .table-bordered th {
-  border: 1px solid #eaeaea;
+  border: 1px solid #000000;
+  text-align: center;
 }
 
 /* Zebra-striping */

@@ -7,6 +7,7 @@ from django.db.models import Q
 import json
 from django.http import HttpResponse, JsonResponse
 from django.urls import reverse_lazy, reverse
+from django.contrib.auth.decorators import login_required
 
 
 class StockLikeList(ListView):
@@ -22,6 +23,7 @@ class StockLikeList(ListView):
         return queryset
 
 
+@login_required(login_url='/login/')
 def like(request, pk):
     stock = get_object_or_404(Stock, id=pk)
 
@@ -68,7 +70,10 @@ class About_SrimList(ListView):
 
 class StockList(ListView):
     model = Stock
+    bbb_rate = Stock.bbb_rate
     ordering = 'pk'
+
+    Stock.objects.filter(roe_average__gt = bbb_rate)
 
 
 class StockDetail(DetailView):

@@ -48,9 +48,9 @@
 
 
 <!-- SideBar -->
-
 {% include 'srim_page/navbar.html' %}
 
+<!-- Main_Area : Stock_List, Stcok_Detail -->
 {% block main_area %}
 {% endblock %}
 
@@ -62,13 +62,16 @@
 
 
 <!-- Specific Page JS goes HERE  -->
+<!-- Bootstrap Table  -->
 <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/tableExport.min.js"></script>
 <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
 <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/export/bootstrap-table-export.min.js"></script>
 <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/multiple-sort/bootstrap-table-multiple-sort.js"></script>
+
+<!-- Chart.JS  -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.3.2/dist/chart.min.js"></script>
 
-
+<!-- Search  -->
 <script>
   function searchStock(){
       var searchValue = document.getElementById('search-input').value.trim();
@@ -87,7 +90,7 @@
   }
 </script>
 
-
+<!-- Chart  -->
 <script>
   $(document).ready(function(){
     var ctx = document.getElementById('myChart').getContext('2d');
@@ -137,7 +140,7 @@
 </script>
 
 
-
+<!-- Table  -->
 <script>
   $(function() {
     $('#table').bootstrapTable()

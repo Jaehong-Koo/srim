@@ -17,7 +17,7 @@
                                 </div>
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-server"></i></a></li>
-                                    <li class="breadcrumb-item"><a href="/srim/">S-RIM 종목</a></li>
+                                    <li class="breadcrumb-item"><a href="/srim/">종목 리스트</a></li>
                                     <li class="breadcrumb-item">{{ stock.name }}</li>
                                 </ul>
                             </div>
@@ -26,28 +26,29 @@
                 </div>
                 <h2>{{ stock.name }}</h2>
 
+                <!-- Function Like -->
                 <p>
                     좋아요 : <a href="{% url 'stock:like' stock.id %}"></a>
                     {% if user in stock.like_users.all %}
-                        <a href="{% url 'stock:like' stock.id %}"><i class="fas fa-heart fa-lg" style="color: #dc143c"></i></a>
+                    <a href="{% url 'stock:like' stock.id %}"><i class="fas fa-heart fa-lg" style="color: #dc143c"></i></a>
                     {% else %}
-                        <a href="{% url 'stock:like' stock.id %}"><i class="far fa-heart fa-lg" style="color: #dc143c"></i></a>
+                    <a href="{% url 'stock:like' stock.id %}"><i class="far fa-heart fa-lg" style="color: #dc143c"></i></a>
                     {% endif %}
 
                     {{ stock.like_users.count }}
                 </p>
-
-
+                <!-- End Like -->
                 <hr/>
+
+                <!-- [ Top-card-section ] start-->
                 <div class="row">
-                    <!-- [ Top-card-section ] start-->
                     <div class="col-md-6 col-xl-4">
                         <div class="card bg-c-blue bitcoin-wallet">
                             <div class="card-block">
                                 <h5 class="text-white mb-2">현재 가격(종가)</h5>
                                 <h2 class="text-white mb-2 f-w-300">{{ stock.current_price|intcomma}}원</h2>
-                                <span class="text-white d-block">업데이트 : {{ stock.created_at }}</span>
-                                <i class="fas fa-pound-sign f-70 text-white"></i>
+                                <span class="text-white d-block">업데이트 : {{ stock.updated_at }}</span>
+                                <i class="fas fa-won-sign f-70 text-white"></i>
                             </div>
                         </div>
                     </div>
@@ -57,7 +58,7 @@
                                 <h5 class="text-white mb-2">S-RIM 적정 가격</h5>
                                 <h2 class="text-white mb-2 f-w-300">{{ stock.srim_price|intcomma }}원</h2>
                                 <span class="text-white d-block">(이익 지속될시)</span>
-                                <i class="fab fa-btc f-70 text-white"></i>
+                                <i class="fas fa-crosshairs f-70 text-white"></i>
                             </div>
                         </div>
                     </div>
@@ -67,12 +68,14 @@
                                 <h5 class="text-white mb-2">괴리율</h5>
                                 <h2 class="text-white mb-2 f-w-300">{{ stock.gap }}%</h2>
                                 <span class="text-white d-block">현재가/SRIM 가격대비</span>
-                                <i class="fas fa-dollar-sign f-70 text-white"></i>
+                                <i class="fas fa-percent f-70 text-white"></i>
                             </div>
                         </div>
                     </div>
-                    <!-- [ Top-card-section ] end-->
                 </div>
+                <!-- [ Top-card-section ] end-->
+
+                <!-- Sector Table -->
                 <div class="row">
                     <div class="col-md-6 col-xl-4">
                         <div class="card">
@@ -110,6 +113,10 @@
                                             <td>{{ stock.srim20_price|intcomma }}원</td>
                                         </tr>
                                         <tr>
+                                            <td>회사채(BBB-)</td>
+                                            <td>{{ stock.bbb_rate }}%</td>
+                                        </tr>
+                                        <tr>
                                             <td>3년 가중평균 ROE</td>
                                             <td>{{ stock.roe_average }}%</td>
                                         </tr>
@@ -127,23 +134,43 @@
                                         </tr>
                                         <tr>
                                             <td>상장폐지 위험여부</td>
+                                            {% if stock.risky == risk %}
+                                            <td style="color: #dc143c;">{{ stock.risky }}</td>
+                                            {% else %}
                                             <td>{{ stock.risky }}</td>
+                                            {% endif %}
                                         </tr>
                                         <tr>
                                             <td>매출액 위험</td>
+                                            {% if stock.risky_revenue == risk %}
+                                            <td style="color: #dc143c;">{{ stock.risky_revenue }}</td>
+                                            {% else %}
                                             <td>{{ stock.risky_revenue }}</td>
+                                            {% endif %}
                                         </tr>
                                         <tr>
                                             <td>장기간영업손실</td>
+                                            {% if stock.risky_profit == risk %}
+                                            <td style="color: #dc143c;">{{ stock.risky_profit }}</td>
+                                            {% else %}
                                             <td>{{ stock.risky_profit }}</td>
+                                            {% endif %}
                                         </tr>
                                         <tr>
                                             <td>법인세비용차감전계속사업손실</td>
+                                            {% if stock.risky_ebitda == risk %}
+                                            <td style="color: #dc143c;">{{ stock.risky_ebitda }}</td>
+                                            {% else %}
                                             <td>{{ stock.risky_ebitda }}</td>
+                                            {% endif %}
                                         </tr>
                                         <tr>
                                             <td>자본잠식 위험</td>
+                                            {% if stock.risky_capital == risk %}
+                                            <td style="color: #dc143c;">{{ stock.risky_capital }}</td>
+                                            {% else %}
                                             <td>{{ stock.risky_capital }}</td>
+                                            {% endif %}
                                         </tr>
                                         </tbody>
                                     </table>
@@ -151,6 +178,9 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Table end-->
+
+                    <!-- Sector Chart -->
                     <div class="col-md-6 col-xl-8">
                         <div class="card">
                             <div class="card-header">
@@ -161,6 +191,8 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Chart end -->
+
                     </row>
                 </div>
             </div>

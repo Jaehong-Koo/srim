@@ -28,7 +28,8 @@
                                                 <div class="card">
                                                     <div class="card-header" id="{{ about_page.title }}">
                                                         <h5 class="mb-0">
-                                                            <a href="#!" data-toggle="collapse" data-target="#{{ about_page.pk }}" aria-expanded="true" aria-controls="{{ about_page.pk }}">
+                                                            <a href="#!" data-toggle="collapse" data-target="#{{ about_page.pk }}" aria-expanded="true" aria-controls="{{ about_page.pk }}"
+                                                               style="color: #000000;">
                                                                 {{ about_page.title }}
                                                             </a>
                                                         </h5>
@@ -38,13 +39,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- [ Hover-table ] end -->
                                         </div>
                                         <!-- [ Main Content ] end -->
+                                        {% endfor %}
                                     </div>
-                                    {% endfor %}
                                 </div>
-
                             </div>
                         </div>
                     </div>

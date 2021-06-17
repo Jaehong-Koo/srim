@@ -264,18 +264,16 @@ def run():
             risky_ebitda = risk_ebitda(stock_code)
             risky_capital = risk_capital(stock_code)
 
-            # 3년 가중평균 roe가 bbb- 값보다 높은 경우만 출력
-            if roe_average > bbb():
-                if Stock.objects.filter(code=stock_code).count() == 0:
-                    Stock(code=stock_code, name=name, sector=sector, current_price=current_price, srim_price=srim_price,
-                          srim10_price=srim10_price, srim20_price=srim20_price, roe_average=roe_average,
-                          roe_2020=roe_2020, roe_2019=roe_2019, roe_2018=roe_2018, bbb_rate=bbb_rate,
-                          gap=gap, risky=risky, risky_revenue=risky_revenue, risky_profit=risky_profit,
-                          risky_ebitda=risky_ebitda, risky_capital=risky_capital).save()
-                else:
-                    queryset = Stock.objects.filter(code=stock_code)
-                    queryset.update(current_price=current_price, srim_price=srim_price, srim10_price=srim10_price,
-                                    srim20_price=srim20_price, bbb_rate=bbb_rate, gap=gap)
+            if Stock.objects.filter(code=stock_code).count() == 0:
+                Stock(code=stock_code, name=name, sector=sector, current_price=current_price, srim_price=srim_price,
+                      srim10_price=srim10_price, srim20_price=srim20_price, roe_average=roe_average,
+                      roe_2020=roe_2020, roe_2019=roe_2019, roe_2018=roe_2018, bbb_rate=bbb_rate,
+                      gap=gap, risky=risky, risky_revenue=risky_revenue, risky_profit=risky_profit,
+                      risky_ebitda=risky_ebitda, risky_capital=risky_capital).save()
+            else:
+                queryset = Stock.objects.filter(code=stock_code)
+                queryset.update(current_price=current_price, srim_price=srim_price, srim10_price=srim10_price,
+                                srim20_price=srim20_price, bbb_rate=bbb_rate, gap=gap)
 
         except Exception as e:
             print(e)

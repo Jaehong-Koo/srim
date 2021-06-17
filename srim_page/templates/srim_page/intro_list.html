@@ -16,12 +16,12 @@
                                     <h5 class="m-b-10">Home</h5>
                                 </div>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                                    <li class="breadcrumb-item"><a href="/">소개</a></li>
+                                    <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
                                 </ul>
                                 <div class="main-body">
                                     <div class="page-wrapper">
                                         <!-- [ Main Content ] start -->
+                                        {% if intro_list %}
                                         {% for intro in intro_list %}
                                         <div class="row">
                                             <div class="col-xl-12">
@@ -34,13 +34,23 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- [ Hover-table ] end -->
                                         </div>
+                                        {% endfor %}
+                                        {% else %}
+                                        <div class="row">
+                                            <div class="col-xl-12">
+                                                <div class="card">
+                                                    <div class="card-block">
+                                                        <p>죄송합니다. 홈페이지를 리뉴얼 중입니다.</p>
+                                                        <p>문의사항은 rnwoghd55@gmail.com으로 연락 주시기 바랍니다.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endif %}
                                         <!-- [ Main Content ] end -->
                                     </div>
-                                    {% endfor %}
                                 </div>
-
                             </div>
                         </div>
                     </div>

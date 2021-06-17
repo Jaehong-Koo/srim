@@ -33,7 +33,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h5>S-RIM 전체 종목 리스트</h5>
-                                        <span class="d-block m-t-5">3년 가중평균 ROE > 회사채 수익률(BBB- 5년) 경우만 해당</span>
+                                        <span class="d-block m-t-5">ROE(3년 가중평균)이 회사채 수익률(BBB- 5년)보다 큰 경우만 포함</span>
                                     </div>
 
                                     <div id="toolbar" class="select">
@@ -55,7 +55,7 @@
                                                    data-pagination="true"
                                                    data-click-to-select="true">
                                                 <thead>
-                                                <tr>
+                                                <tr style="background: #3f4d67; color: #fff;">
                                                     <th data-field="state" data-checkbox="true"></th>
                                                     <th data-field="{{ stock.get_absolute_url }}" data-formatter="LinkFormatter">링크</th>
                                                     <th data-field="종목코드">종목코드</th>
@@ -63,12 +63,11 @@
                                                     <th data-field="섹터" data-sortable="true">섹터</th>
                                                     <th data-field="현재가">현재가(A)</th>
                                                     <th data-field="적정가격(SRIM매도)">적정가격(B)</th>
-                                                    <th data-field="적정가격(SRIM10%)">적정가격(SRIM10%)</th>
-                                                    <th data-field="적정가격(SRIM20%)">적정가격(SRIM20%)</th>
+                                                    <th data-field="적정가격(SRIM10%)">적정가격(10%)</th>
+                                                    <th data-field="적정가격(SRIM20%)">적정가격(20%)</th>
                                                     <th data-field="괴리율(매도가대비)" data-sortable="true">괴리율%(A와B)</th>
-                                                    <th data-field="가중평균ROE(3년)" data-sortable="true">가중평균ROE%(3년)</th>
-                                                    <th data-field="상장폐지 위험여부" data-sortable="true">상장폐지 위험여부</th>
-                                                    <th data-sortable="true">데이터 생성일</th>
+                                                    <th data-field="가중평균ROE(3년)" data-sortable="true">ROE(%)</th>
+                                                    <th data-field="상장폐지 위험여부" data-sortable="true">위험여부</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -86,7 +85,6 @@
                                                     <td>{{ stock.gap }}</td>
                                                     <td>{{ stock.roe_average }}</td>
                                                     <td>{{ stock.risky }}</td>
-                                                    <td>{{ stock.created_at }}</td>
                                                 </tr>
                                                 {% endfor %}
                                                 </tbody>

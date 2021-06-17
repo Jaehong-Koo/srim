@@ -17,7 +17,7 @@
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
                                     <li class="breadcrumb-item">About S-RIM</li>
-                                    <li class="breadcrumb-item"><a href="/">적정가치 계산방법/원리</a></li>
+                                    <li class="breadcrumb-item"><a href="/about_srim/">적정가치 계산방법/원리</a></li>
                                 </ul>
                                 <div class="main-body">
                                     <div class="page-wrapper">
@@ -28,7 +28,8 @@
                                                 <div class="card">
                                                     <div class="card-header" id="{{ about_srim.title }}">
                                                         <h5 class="mb-0">
-                                                            <a href="#!" data-toggle="collapse" data-target="#{{ about_srim.pk }}" aria-expanded="true" aria-controls="{{ about_srim.pk }}">
+                                                            <a href="#!" data-toggle="collapse" data-target="#{{ about_srim.pk }}" aria-expanded="true" aria-controls="{{ about_srim.pk }}"
+                                                               style="color: #000000;">
                                                                 {{ about_srim.title }}
                                                             </a>
                                                         </h5>
@@ -39,11 +40,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- [ Hover-table ] end -->
+                                        {% endfor %}
+                                        <!-- [ Main Content ] end -->
                                     </div>
-                                    <!-- [ Main Content ] end -->
                                 </div>
-                                {% endfor %}
+
                             </div>
 
                         </div>
