@@ -9,6 +9,19 @@ from django.http import HttpResponse, JsonResponse
 from django.urls import reverse_lazy, reverse
 
 
+class StockLikeList(ListView):
+    model = Stock
+    template_name = 'srim_page/stock_list.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        return super(StockLikeList, self).dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = user.like_stock.all()
+        return queryset
+
+
 def like(request, pk):
     stock = get_object_or_404(Stock, id=pk)
 
@@ -18,8 +31,6 @@ def like(request, pk):
         stock.like_users.add(request.user)
 
     return redirect('stock:detail', pk=pk)
-
-
 
 
 def login_page(request):
@@ -63,13 +74,6 @@ class StockList(ListView):
 class StockDetail(DetailView):
     model = Stock
 
-    # def get_context_data(self, *args, **kwargs):
-    #     context = super(StockDetail, self).get_context_data()
-    #     stuff = get_object_or_404(Stock, id=self.kwargs['pk'])
-    #     total_likes = stuff.total_likes()
-    #     context["total_likes"] = total_likes
-    #     return context
-
 
 class StockChartView(TemplateView):
     template_name = 'srim_page/stock_detail.html'
@@ -92,11 +96,3 @@ class StockSearch(StockList):
         ).order_by('-created_at').distinct()
 
         return stock_list
-
-    # def get_context_data(self, **kwargs):
-    #     context = super(StockSearch, self).get_context_data()
-    #     q = self.kwargs['q']
-    #     context['search_info'] = f'검색 결과 : {q}'
-    #
-    #     return context
-

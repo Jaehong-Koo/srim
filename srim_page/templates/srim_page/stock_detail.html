@@ -26,12 +26,12 @@
                 </div>
                 <h2>{{ stock.name }}</h2>
 
-                <p style="color: #CDCDCD">
+                <p>
                     좋아요 : <a href="{% url 'stock:like' stock.id %}"></a>
                     {% if user in stock.like_users.all %}
-                        <a href="{% url 'stock:like' stock.id %}"><i class="fas fa-heart"></i></a>
+                        <a href="{% url 'stock:like' stock.id %}"><i class="fas fa-heart fa-lg" style="color: #dc143c"></i></a>
                     {% else %}
-                        <a href="{% url 'stock:like' stock.id %}"><i class="far fa-heart"></i></a>
+                        <a href="{% url 'stock:like' stock.id %}"><i class="far fa-heart fa-lg" style="color: #dc143c"></i></a>
                     {% endif %}
 
                     {{ stock.like_users.count }}

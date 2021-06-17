@@ -63,10 +63,10 @@
                 {% if user.is_authenticated %}
                 <li class="nav-item pcoded-hasmenu">
                     <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-lock"></i></span>
-                        <span class="pcoded-mtext">{{ user.username }}님 페이지</span>
+                        <span class="pcoded-mtext">{{ user.username }}님의 페이지</span>
                     </a>
                     <ul class="pcoded-submenu">
-                        <li class=""><a href="/about_page/" class="">찜목록</a></li>
+                        <li class=""><a href="{% url 'stock:like_list' %}" class="">좋아요 목록</a></li>
                         <li class=""><a href="/accounts/logout/" class="">로그아웃</a></li>
                     </ul>
                 </li>
