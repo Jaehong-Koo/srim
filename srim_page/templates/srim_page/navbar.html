@@ -9,7 +9,7 @@
                 </div>
                 <span class="b-title">S-RIM 사이트(가제)</span>
             </a>
-            <a class="mobile-menu" id="mobile-collapse" href="javascript:"><span></span></a>
+            <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
         </div>
 
         <div class="navbar-content scroll-div">
@@ -18,7 +18,9 @@
                 <!-- Function Search -->
                 <li class="nav-item">
                     <div class="form-inline" role="search">
-                        <input class="search js-search form-control form-control-rounded mr-sm-2" id="search-input" onkeyup="wait_for_enterkey();" type="text" title="검색어를 입력하세요" placeholder="종목코드 또는 종목명 입력">
+                        <input class="search js-search form-control form-control-rounded mr-sm-2" id="search-input"
+                               onkeyup="wait_for_enterkey();" type="text" title="검색어를 입력하세요" placeholder="종목코드 또는 종목명 입력"
+                               style="padding: 10px;">
                         <span class="input-group-btn">
                             <button type="button" class="btn-sm btn-light" onclick="searchStock();">
                                 <i class="fas fa-search"></i>
@@ -69,7 +71,7 @@
 
                 {% if user.is_authenticated %}
                 <li class="nav-item pcoded-hasmenu">
-                    <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-lock"></i></span>
+                    <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-unlock"></i></span>
                         <span class="pcoded-mtext">{{ user.username }}님의 페이지</span>
                     </a>
                     <ul class="pcoded-submenu">
@@ -85,10 +87,18 @@
                     </a>
                 </li>
                 {% endif %}
-                <!-- Profile End -->
 
+                {% if user.is_superuser or user.is_staff %}
+                <li class="nav-item">
+                    <a href="/admin/" target="_blank" class="nav-link"><span class="pcoded-micon"><i class="feather icon-user"></i></span>
+                        <span class="pcoded-mtext">관리자페이지</span>
+                    </a>
+                </li>
+                {% endif %}
+                <!-- Profile End -->
             </ul>
         </div>
     </div>
 </nav>
+
 

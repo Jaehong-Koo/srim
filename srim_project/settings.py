@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.kakao',
+    'django_summernote', # Django Summernote Editor
 ]
 
 MIDDLEWARE = [
@@ -128,6 +130,9 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -148,3 +153,36 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_ON_GET = True
+
+
+# Summernote Editor Setting
+SUMMERNOTE_CONFIG = {
+    # Using SummernoteWidget - iframe mode, default
+    # 첨부 파일 용량 크기
+    'attachment_filesize_limit': 15 * 1024 * 1024,
+    'iframe': True,
+    'summernote': {
+        'prettifyHtml':False,
+        'toolbar': [
+            ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']],
+            ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+            ['misc', ['codeview', 'undo', 'redo', 'codeBlock']],
+            ['color', ['forecolor','color']],
+            ['table', ['table']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['insert',['picture','link','video']],
+            ['view', ['fullscreen', 'help']],
+        ],
+        'fontNames': ['Arial', 'Arial Black', 'Comic Sans MS', 'Noto Sans KR', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+        'fontSizes': ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+
+        # Or, explicitly set language/locale for editor
+        'lang': 'ko-KR'
+    }
+}
+
+
+#클릭재킹 방지설정 변경
+X_FRAME_OPTIONS = 'SAMEORIGIN'

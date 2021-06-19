@@ -27,10 +27,10 @@
                                             <div class="col-xl-12">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5>{{ intro.title }}</h5>
+                                                        <h5>{{ intro.title | safe }}</h5>
                                                     </div>
                                                     <div class="card-block">
-                                                        {{ intro.content }}
+                                                        {{ intro.content | safe }}
                                                     </div>
                                                 </div>
                                             </div>

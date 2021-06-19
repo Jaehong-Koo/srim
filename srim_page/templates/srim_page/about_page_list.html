@@ -30,12 +30,12 @@
                                                         <h5 class="mb-0">
                                                             <a href="#!" data-toggle="collapse" data-target="#{{ about_page.pk }}" aria-expanded="true" aria-controls="{{ about_page.pk }}"
                                                                style="color: #000000;">
-                                                                {{ about_page.title }}
+                                                                {{ about_page.title | safe }}
                                                             </a>
                                                         </h5>
                                                     </div>
                                                     <div id="{{ about_page.pk }}" class="card-body collapse" aria-labelledby="{{ about_page.pk }}" data-parent="#accordionExample">
-                                                        {{ about_page.content }}
+                                                        {{ about_page.content | safe }}
                                                     </div>
                                                 </div>
                                             </div>

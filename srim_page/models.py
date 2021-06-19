@@ -7,7 +7,6 @@ from django.conf import settings
 class Intro(models.Model):
     title = models.CharField(max_length=28)
     content = models.TextField()
-    hook_text = models.TextField()
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True, null=True)
@@ -20,7 +19,6 @@ class Intro(models.Model):
 class About_Page(models.Model):
     title = models.CharField(max_length=28)
     content = models.TextField()
-    hook_text = models.TextField()
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True, null=True)
@@ -33,7 +31,6 @@ class About_Page(models.Model):
 class About_Srim(models.Model):
     title = models.CharField(max_length=28)
     content = models.TextField()
-    hook_text = models.TextField()
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True, null=True)
@@ -53,13 +50,13 @@ class Stock(models.Model):
     srim10_price = models.IntegerField()
     srim20_price = models.IntegerField()
 
-    roe_average = models.CharField(max_length=20, null=True)
-    roe_2020 = models.CharField(max_length=20, null=True)
-    roe_2019 = models.CharField(max_length=20, null=True)
-    roe_2018 = models.CharField(max_length=20, null=True)
-    bbb_rate = models.CharField(max_length=20, null=True)
+    roe_average = models.FloatField(max_length=20, null=True)
+    roe_2020 = models.FloatField(max_length=20, null=True)
+    roe_2019 = models.FloatField(max_length=20, null=True)
+    roe_2018 = models.FloatField(max_length=20, null=True)
+    bbb_rate = models.FloatField(max_length=20, null=True)
 
-    gap = models.CharField(max_length=20, null=True)
+    gap = models.FloatField(max_length=20, null=True)
 
     risky = models.CharField(max_length=20)
     risky_revenue = models.CharField(max_length=20, null=True)
@@ -71,9 +68,7 @@ class Stock(models.Model):
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    like = models.ManyToManyField(User, related_name='likes', blank=True)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_stock')
-
 
 
     def __str__(self):

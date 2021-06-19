@@ -33,7 +33,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h5>S-RIM 전체 종목 리스트</h5>
-                                        <span class="d-block m-t-5">ROE(3년 가중평균)이 회사채 수익률(BBB- 5년)보다 큰 경우만 포함</span>
+                                        <span class="d-block m-t-5"></span>
                                     </div>
 
                                     <div id="toolbar" class="select">
@@ -83,8 +83,18 @@
                                                     <td>{{ stock.srim10_price | intcomma }}원</td>
                                                     <td>{{ stock.srim20_price | intcomma }}원</td>
                                                     <td>{{ stock.gap }}</td>
+
+                                                    {% if stock.roe_average < stock.bbb_rate %}
+                                                    <td style="color: #dc143c; font-weight: bold;">{{ stock.roe_average }}</td>
+                                                    {% else %}
                                                     <td>{{ stock.roe_average }}</td>
+                                                    {% endif %}
+
+                                                    {% if stock.risky == 'risky' %}
+                                                    <td style="color: #dc143c; font-weight: bold;">{{ stock.risky }}</td>
+                                                    {% else %}
                                                     <td>{{ stock.risky }}</td>
+                                                    {% endif %}
                                                 </tr>
                                                 {% endfor %}
                                                 </tbody>

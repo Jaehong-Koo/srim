@@ -23,13 +23,6 @@ def stock_market(stock_code):
     return stock_market
 
 
-# 종가 가져오는 함수
-def stock_price(stock_code):
-    stock_price = int(stock_df.loc[stock_code]['종가'])
-
-    return stock_price
-
-
 # 섹터 가져오는 함수
 def stock_sector(stock_code):
     stock_sector = stock_df.loc[stock_code]['업종명']
@@ -118,7 +111,7 @@ def risk_revenue(stock_code):
     revenue_2019 = naver_df(stock_code)['매출액']['2019(IFRS별도)']
 
     if revenue_2020 < 50 or revenue_2019 < 50:
-        result = 'risk'
+        result = 'risky'
     else:
         result = 'okay'
 
@@ -132,7 +125,7 @@ def risk_profit(stock_code):
     profit_2017 = naver_df(stock_code)['영업이익']['2017(IFRS별도)']
 
     if profit_2020 < 0 or profit_2019 < 0 or profit_2018 < 0 or profit_2017 < 0:
-        result = 'risk'
+        result = 'risky'
     else:
         result = 'okay'
 
@@ -156,7 +149,7 @@ def risk_ebitda(stock_code):
         equity_2018 = naver_df(stock_code)['자본총계(지배)']['2018(IFRS별도)']
 
     if ebitda_2020 > equity_2020 / 2 or ebitda_2019 > equity_2019 / 2 or ebitda_2018 > equity_2018 / 2:
-        result = 'risk'
+        result = 'risky'
     else:
         result = 'okay'
 
@@ -176,7 +169,7 @@ def risk_capital(stock_code):
         capital_2019 = naver_df(stock_code)['자본금']['2019(IFRS별도)']
 
     if capital_2020 / total_equity_2020 >= 0.5 or capital_2019 / total_equity_2019 >= 0.5:
-        result = 'risk'
+        result = 'risky'
     else:
         result = 'okay'
 
@@ -226,9 +219,9 @@ def gap_(stock_code):
 
 ## 상장폐지 요건 구하는 함수
 def risk(stock_code):
-    if risk_revenue(stock_code) == 'risk' or risk_profit(stock_code) == 'risk' or risk_ebitda(
-            stock_code) == 'risk' or risk_capital(stock_code) == 'risk':
-        result = 'risk'
+    if risk_revenue(stock_code) == 'risky' or risk_profit(stock_code) == 'risky' or risk_ebitda(
+            stock_code) == 'risky' or risk_capital(stock_code) == 'risky':
+        result = 'risky'
     else:
         result = 'okay'
 
@@ -240,7 +233,7 @@ def run():
     # x, _ = Stock.objects.filter(created_at__lte=datetime.date.today() - timedelta(days=1)).delete()
     # print(x, 'stock deleted')
 
-    for row in range(0, 10):  # len(stock_df)
+    for row in range(0, len(stock_df)):  # len(stock_df)
         try:
             stock_code = stock_df.index[row]
             name = stock_name(stock_code)
@@ -251,13 +244,13 @@ def run():
             srim10_price = srim(stock_code, 0.9)
             srim20_price = srim(stock_code, 0.8)
 
-            roe_average = round(roe_3(stock_code), 2)
-            roe_2020 = round(roe(stock_code, '2020'), 2)
-            roe_2019 = round(roe(stock_code, '2019'), 2)
-            roe_2018 = round(roe(stock_code, '2018'), 2)
-            bbb_rate = bbb()
+            roe_average = float(round(roe_3(stock_code), 2))
+            roe_2020 = float(round(roe(stock_code, '2020'), 2))
+            roe_2019 = float(round(roe(stock_code, '2019'), 2))
+            roe_2018 = float(round(roe(stock_code, '2018'), 2))
+            bbb_rate = float(bbb())
 
-            gap = round(gap_(stock_code), 2)
+            gap = float(round(gap_(stock_code), 2))
             risky = risk(stock_code)
             risky_revenue = risk_revenue(stock_code)
             risky_profit = risk_profit(stock_code)
@@ -275,7 +268,6 @@ def run():
                 queryset.update(current_price=current_price, srim_price=srim_price, srim10_price=srim10_price,
                                 srim20_price=srim20_price, bbb_rate=bbb_rate, gap=gap)
 
-        except Exception as e:
-            print(e)
+        except:
             print(row)
             pass

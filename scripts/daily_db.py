@@ -97,7 +97,19 @@ krx_sector_df = pd.concat([krx_df(otp_form_data_kospi), krx_df(otp_form_data_kos
 stock_df = krx_stock_df.join(krx_sector_df['업종명'], on='종목코드')
 
 # 필요항목(열)만 추출
-stock_df = stock_df.loc[:, ['종목명', '시장구분', '업종명', '종가', '상장주식수']]
+stock_df = stock_df.loc[:, ['종목명', '시장구분', '업종명', '상장주식수']]
 
 # 결측치 대체
 stock_df = stock_df.fillna('해당없음')
+
+
+# 현재 가격, 네이버금융에서 크롤링하는 함수
+def stock_price(stock_code):
+    url = 'https://finance.naver.com/item/main.nhn?code={}'.format(stock_code)
+    r = requests.get(url)
+    bs = BeautifulSoup(r.text, "html.parser")
+    result = bs.find("p", {"class": "no_today"}).find("span", {"class": "blind"}).text
+    result = result.replace(',', '')
+    result = int(result)
+
+    return result

@@ -70,10 +70,7 @@ class About_SrimList(ListView):
 
 class StockList(ListView):
     model = Stock
-    bbb_rate = Stock.bbb_rate
     ordering = 'pk'
-
-    Stock.objects.filter(roe_average__gt = bbb_rate)
 
 
 class StockDetail(DetailView):

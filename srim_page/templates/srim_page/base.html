@@ -31,6 +31,10 @@
     <!-- bootstrap-table -->
     <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
 
+    <!-- Google Fonts Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+
 
 
 </head>
@@ -93,8 +97,8 @@
 <!-- Chart  -->
 <script>
   $(document).ready(function(){
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
+    var ctx = document.getElementById('barChart').getContext('2d');
+    var barChart = new Chart(ctx, {
       data: {
           labels: ['S-RIM 가격', 'S-RIM 가격(10%)', 'SRIM 가격(20%)'],
           datasets: [{
@@ -116,6 +120,53 @@
              type: 'line',
              label: '현재가격',
              data: [{{ stock.current_price }}, {{ stock.current_price }}, {{ stock.current_price }}],
+             backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(255, 99, 132, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(255, 99, 132, 1)'
+              ],
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function(){
+    var ctx = document.getElementById('lineChart').getContext('2d');
+    var lineChart = new Chart(ctx, {
+      data: {
+          labels: ['ROE(2018)', 'ROE(2019)', 'ROE(2020)'],
+          datasets: [{
+              type: 'line',
+              label: 'ROE',
+              data: [{{ stock.roe_2018 }}, {{ stock.roe_2019 }}, {{ stock.roe_2020 }}],
+              backgroundColor: [
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(54, 162, 235, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(54, 162, 235, 1)'
+              ],
+          }, {
+             type: 'line',
+             label: '회사채 금리(BBB- 5년)',
+             data: [{{ stock.bbb_rate }}, {{ stock.bbb_rate }}, {{ stock.bbb_rate }}],
              backgroundColor: [
                   'rgba(255, 99, 132, 0.2)',
                   'rgba(255, 99, 132, 0.2)',

@@ -103,7 +103,7 @@ def mystock_count_df(stock_code):
 def run():
     naver_report = pd.DataFrame()
     fnguide_df = pd.DataFrame()
-    for cnt in range(0, 500):  # len(stock_df)
+    for cnt in range(0, len(stock_df)):  # len(stock_df)
         stock_code = stock_df.iloc[cnt].name
         try:
             naver_report = pd.concat([naver_report, naver_total(stock_code)])
