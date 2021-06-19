@@ -1707,7 +1707,7 @@ p.text-muted {
 }
 /* Pre-loader css end */
 /* header css start */
-@media (max-width: 1366px){
+@media (max-width: 992px){
 .pcoded-header {
   z-index: 1028;
   position: relative;
@@ -1727,7 +1727,7 @@ p.text-muted {
 }
 }
 
-@media (max-width: 1366px){
+@media (max-width: 992px){
 .pcoded-header .m-header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2035,7 +2035,7 @@ p.text-muted {
 
 /* header css end */
 /* menu[ vartical ] css start */
-@media (max-width: 1366px){
+@media (max-width: 992px){
 .mobile-menu {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2169,6 +2169,8 @@ p.text-muted {
   float: left;
   display: inline-block;
 }
+
+
 .pcoded-navbar .mobile-menu {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2885,7 +2887,7 @@ p.text-muted {
 
 /* main content end*/
 /* ==========================    Rsponsive Menu  start   ====================== */
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 992px) {
   .pcoded-header {
     background: #3f4d67;
     color: #fff;
