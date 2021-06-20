@@ -4,6 +4,7 @@ from django.utils.timezone import now
 from django.conf import settings
 
 
+# 소개 페이지 모델
 class Intro(models.Model):
     title = models.CharField(max_length=28)
     content = models.TextField()
@@ -16,6 +17,7 @@ class Intro(models.Model):
         return f'[{self.pk}]{self.title}'
 
 
+# 홈페이지 이용안내 각 글 모델
 class About_Page(models.Model):
     title = models.CharField(max_length=28)
     content = models.TextField()
@@ -28,6 +30,7 @@ class About_Page(models.Model):
         return f'[{self.pk}]{self.title}'
 
 
+# 계산 방법 및 안내 각 글 모델
 class About_Srim(models.Model):
     title = models.CharField(max_length=28)
     content = models.TextField()
@@ -40,6 +43,7 @@ class About_Srim(models.Model):
         return f'[{self.pk}]{self.title}'
 
 
+# Stock 모델
 class Stock(models.Model):
     code = models.CharField(max_length=15)
     name = models.CharField(max_length=15)
@@ -67,6 +71,7 @@ class Stock(models.Model):
     created_at = models.DateTimeField(default=now)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
+    # 좋아요 기능 추가, related_name = like_stock
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_stock')
 
@@ -74,6 +79,7 @@ class Stock(models.Model):
     def __str__(self):
         return f'[{self.pk}]{self.name}'
 
+    # 각 Stock의 url 지정
     def get_absolute_url(self):
         return '/srim/{}/'.format(self.pk)
 

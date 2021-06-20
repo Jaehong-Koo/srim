@@ -1,6 +1,10 @@
 {% extends 'srim_page/base.html' %}
 {% load static %}
 {% load humanize %}
+{% block head_title %}
+상세 사항 - {{ stock.name }}
+{% endblock %}
+
 {% block main_area %}
 
 <div class="pcoded-main-container">

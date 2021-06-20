@@ -1,40 +1,44 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponseForbidden, HttpResponseRedirect
-from urllib.parse import urlparse
-from django.views.generic import View, ListView, DetailView, TemplateView
-from .models import Stock, Intro, About_Page, About_Srim, User
+from django.views.generic import ListView, DetailView, TemplateView
+from .models import Stock, Intro, About_Page, About_Srim
 from django.db.models import Q
-import json
-from django.http import HttpResponse, JsonResponse
-from django.urls import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
 
 
+# Stock Like List View for User
 class StockLikeList(ListView):
     model = Stock
     template_name = 'srim_page/stock_list.html'
 
+    # dispatch 사용
     def dispatch(self, request, *args, **kwargs):
         return super(StockLikeList, self).dispatch(request, *args, **kwargs)
 
+    # 각 request user = user 지정
     def get_queryset(self):
         user = self.request.user
+        # like_stock 메소드에 해당하는 모든 리스트 return
         queryset = user.like_stock.all()
         return queryset
 
 
+# Like Function, need login
 @login_required(login_url='/login/')
 def like(request, pk):
     stock = get_object_or_404(Stock, id=pk)
 
+    # unlike할 때 -> remove
     if request.user in stock.like_users.all():
         stock.like_users.remove(request.user)
+
+    # like할 때 -> add
     else:
         stock.like_users.add(request.user)
 
     return redirect('stock:detail', pk=pk)
 
 
+# Login Page view
 def login_page(request):
 
     return render(
@@ -46,6 +50,7 @@ def login_page(request):
     )
 
 
+# Intro page view
 def intro_page(request):
     intro_list = Intro.objects.all()
 
@@ -68,15 +73,18 @@ class About_SrimList(ListView):
     model = About_Srim
 
 
+# Stock List page
 class StockList(ListView):
     model = Stock
     ordering = 'pk'
 
 
+# Stock Detail page
 class StockDetail(DetailView):
     model = Stock
 
 
+# Stock ChartView page
 class StockChartView(TemplateView):
     template_name = 'srim_page/stock_detail.html'
     model = Stock
@@ -89,6 +97,7 @@ class StockChartView(TemplateView):
         return context
 
 
+# Stock Search page
 class StockSearch(StockList):
 
     def get_queryset(self):

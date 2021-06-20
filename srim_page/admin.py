@@ -3,6 +3,7 @@ from .models import Stock, Intro, About_Page, About_Srim
 from django_summernote.admin import SummernoteModelAdmin
 
 
+# Summernote 에디터 사용
 class IntroAdmin(SummernoteModelAdmin):
     summernote_fields = '__all__'
 

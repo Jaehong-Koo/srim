@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.kakao',
     'django_summernote', # Django Summernote Editor
+    'crispy_forms', # Crispy Forms
 ]
 
 MIDDLEWARE = [
@@ -114,6 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
+# Language, Loaction 설정
 LANGUAGE_CODE = 'ko'
 
 TIME_ZONE = 'Asia/Seoul'
@@ -129,6 +131,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -184,5 +187,9 @@ SUMMERNOTE_CONFIG = {
 }
 
 
-#클릭재킹 방지설정 변경
+# Summernote 클릭재킹 방지설정 변경
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+
+# Crispy Forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
