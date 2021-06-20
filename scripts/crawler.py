@@ -5,6 +5,7 @@ from scripts.quarterly_db import *
 def run():
     naver_report = pd.read_hdf('naver.hdf', key='df')
     fnguide_df = pd.read_hdf('fnguide.hdf', key='df')
+    stock_df = pd.read_hdf('stock.hdf', key='df')
 
     #### 3. 위의 DB를 활용해서 뽑아내는 함수
 
