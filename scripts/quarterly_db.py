@@ -1,6 +1,4 @@
 from scripts.daily_db import *
-import csv
-
 
 #### 2. Quarterly 필요한 DB쌓기 - 네이버금융, 에프앤가이드
 
@@ -101,6 +99,8 @@ def mystock_count_df(stock_code):
 
 ## DB쌓기
 def run():
+    stock_df = pd.read_hdf('stock.hdf', key='df')
+
     naver_report = pd.DataFrame()
     fnguide_df = pd.DataFrame()
     for cnt in range(0, len(stock_df)):  # len(stock_df)
