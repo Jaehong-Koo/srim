@@ -216,7 +216,6 @@ def run():
         return result
 
 
-
     for row in range(0, len(stock_df)):  # len(stock_df)
         try:
             stock_code = stock_df.index[row]
