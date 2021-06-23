@@ -28,7 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['3.37.5.6']
 
-
 # Application definition
 
 INSTALLED_APPS = [
