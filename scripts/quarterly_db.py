@@ -103,14 +103,14 @@ def run():
 
     naver_report = pd.DataFrame()
     fnguide_df = pd.DataFrame()
-    for cnt in range(0, 50):  # len(stock_df)
+    for cnt in range(0, 500):  # len(stock_df)
         stock_code = stock_df.iloc[cnt].name
         try:
             naver_report = pd.concat([naver_report, naver_total(stock_code)])
             fnguide_df = pd.concat([fnguide_df, mystock_count_df(stock_code)])
-            print("done")
+            # print("done")
         except:
-            print(stock_code)
+            # print(stock_code)
             pass
 
     naver_report = naver_report.fillna(0)
