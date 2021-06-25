@@ -192,4 +192,3 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 # Crispy Forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-

@@ -216,7 +216,7 @@ def run():
         return result
 
 
-    for row in range(0, len(stock_df)):  # len(stock_df)
+    for row in range(0, 10):  # len(stock_df)
         try:
             stock_code = stock_df.index[row]
             name = stock_name(stock_code)
@@ -240,6 +240,8 @@ def run():
             risky_ebitda = risk_ebitda(stock_code)
             risky_capital = risk_capital(stock_code)
 
+            updated_at = datetime.datetime.now()
+
             if Stock.objects.filter(code=stock_code).count() == 0:
                 Stock(code=stock_code, name=name, sector=sector, current_price=current_price, srim_price=srim_price,
                       srim10_price=srim10_price, srim20_price=srim20_price, roe_average=roe_average,
@@ -249,7 +251,7 @@ def run():
             else:
                 queryset = Stock.objects.filter(code=stock_code)
                 queryset.update(current_price=current_price, srim_price=srim_price, srim10_price=srim10_price,
-                                srim20_price=srim20_price, bbb_rate=bbb_rate, gap=gap)
+                                srim20_price=srim20_price, bbb_rate=bbb_rate, gap=gap, updated_at=updated_at)
 
         except:
             pass
