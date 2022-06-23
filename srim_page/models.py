@@ -55,6 +55,7 @@ class Stock(models.Model):
     srim20_price = models.IntegerField()
 
     roe_average = models.FloatField(max_length=20, null=True)
+    roe_2021 = models.FloatField(max_length=20, null=True)
     roe_2020 = models.FloatField(max_length=20, null=True)
     roe_2019 = models.FloatField(max_length=20, null=True)
     roe_2018 = models.FloatField(max_length=20, null=True)

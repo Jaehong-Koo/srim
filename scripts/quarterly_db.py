@@ -50,16 +50,16 @@ def naver_total(stock_code):
 
     df = pd.concat([df_connect, df_individual], join='inner')
 
-    # 인덱스 이름 재정리
-    index_dict = ['2016(IFRS연결)', '2017(IFRS연결)', '2018(IFRS연결)', '2019(IFRS연결)', '2020(IFRS연결)', '2021(IFRS연결)',
-                  '2022(IFRS연결)', '2023(IFRS연결)',
-                  '2016(IFRS별도)', '2017(IFRS별도)', '2018(IFRS별도)', '2019(IFRS별도)', '2020(IFRS별도)', '2021(IFRS별도)',
-                  '2022(IFRS별도)', '2023(IFRS별도)']
+    # 인덱스 이름 재정리(2017~2024)
+    index_dict = ['2017(IFRS연결)', '2018(IFRS연결)', '2019(IFRS연결)', '2020(IFRS연결)', '2021(IFRS연결)', '2022(IFRS연결)',
+                  '2023(IFRS연결)', '2024(IFRS연결)',
+                  '2017(IFRS별도)', '2018(IFRS별도)', '2019(IFRS별도)', '2020(IFRS별도)', '2021(IFRS별도)', '2022(IFRS별도)',
+                  '2023(IFRS별도)', '2024(IFRS별도)']
     df.index = index_dict
 
-    # 발행년도 2016~2020만 추출
-    df = df.loc[['2016(IFRS연결)', '2017(IFRS연결)', '2018(IFRS연결)', '2019(IFRS연결)', '2020(IFRS연결)',
-                 '2016(IFRS별도)', '2017(IFRS별도)', '2018(IFRS별도)', '2019(IFRS별도)', '2020(IFRS별도)']]
+    # 발행년도 2017~2021만 추출
+    df = df.loc[['2017(IFRS연결)', '2018(IFRS연결)', '2019(IFRS연결)', '2020(IFRS연결)', '2021(IFRS연결)',
+                 '2017(IFRS별도)', '2018(IFRS별도)', '2019(IFRS별도)', '2020(IFRS별도)', '2021(IFRS별도)']]
 
     # stock_code 열 추가
     df['종목코드'] = stock_code

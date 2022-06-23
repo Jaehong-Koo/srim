@@ -53,11 +53,11 @@ def run():
 
     # 자기자본총계(지배주주지분) 출력함수
     def naver_equity(stock_code):
-        if naver_df(stock_code)['자본총계(지배)']['2020(IFRS연결)'] != 0:
-            equity = naver_df(stock_code)['자본총계(지배)']['2020(IFRS연결)']  # 컬럼 : 자본총계(지배), 인덱스 : 2020/12 연결 값 출력
+        if naver_df(stock_code)['자본총계(지배)']['2021(IFRS연결)'] != 0:
+            equity = naver_df(stock_code)['자본총계(지배)']['2021(IFRS연결)']  # 컬럼 : 자본총계(지배), 인덱스 : 2021/12 연결 값 출력
 
         else:
-            equity = naver_df(stock_code)['자본총계(지배)']['2020(IFRS별도)']  # 컬럼 : 자본총계(지배), 인덱스 : 2020/12 별도 값 출력
+            equity = naver_df(stock_code)['자본총계(지배)']['2021(IFRS별도)']  # 컬럼 : 자본총계(지배), 인덱스 : 2021/12 별도 값 출력
 
         equity = equity * 100000000  # 억 단위 변환
 
@@ -75,9 +75,9 @@ def run():
 
     # 3년 가중평균 roe 값 구하는 함수
     def roe_3(stock_code):
-        roe_1st = roe(stock_code, '2020')
-        roe_2nd = roe(stock_code, '2019')
-        roe_3rd = roe(stock_code, '2018')
+        roe_1st = roe(stock_code, '2021')
+        roe_2nd = roe(stock_code, '2020')
+        roe_3rd = roe(stock_code, '2019')
 
         # 가중평균 중 나누기 값을 구하기 위함, 만약 3년전 roe 값 0이라면 가중치를 0으로 둬야하기 때문
         roe_list = [roe_1st, roe_2nd, roe_3rd]
@@ -102,10 +102,10 @@ def run():
     # 자본잠식 : 자본금/자본총계 > 50%
 
     def risk_revenue(stock_code):
+        revenue_2021 = naver_df(stock_code)['매출액']['2021(IFRS별도)']
         revenue_2020 = naver_df(stock_code)['매출액']['2020(IFRS별도)']
-        revenue_2019 = naver_df(stock_code)['매출액']['2019(IFRS별도)']
 
-        if revenue_2020 < 50 or revenue_2019 < 50:
+        if revenue_2021 < 50 or revenue_2020 < 50:
             result = 'risky'
         else:
             result = 'okay'
@@ -113,12 +113,12 @@ def run():
         return result
 
     def risk_profit(stock_code):
+        profit_2021 = naver_df(stock_code)['영업이익']['2021(IFRS별도)']
         profit_2020 = naver_df(stock_code)['영업이익']['2020(IFRS별도)']
         profit_2019 = naver_df(stock_code)['영업이익']['2019(IFRS별도)']
         profit_2018 = naver_df(stock_code)['영업이익']['2018(IFRS별도)']
-        profit_2017 = naver_df(stock_code)['영업이익']['2017(IFRS별도)']
 
-        if profit_2020 < 0 or profit_2019 < 0 or profit_2018 < 0 or profit_2017 < 0:
+        if profit_2021 < 0 or profit_2020 < 0 or profit_2019 < 0 or profit_2018 < 0:
             result = 'risky'
         else:
             result = 'okay'
@@ -126,22 +126,22 @@ def run():
         return result
 
     def risk_ebitda(stock_code):
-        if naver_df(stock_code)['세전계속사업이익']['2020(IFRS연결)'] != 0:
+        if naver_df(stock_code)['세전계속사업이익']['2021(IFRS연결)'] != 0:
+            ebitda_2021 = naver_df(stock_code)['세전계속사업이익']['2021(IFRS연결)']
+            equity_2021 = naver_df(stock_code)['자본총계(지배)']['2021(IFRS연결)']
             ebitda_2020 = naver_df(stock_code)['세전계속사업이익']['2020(IFRS연결)']
             equity_2020 = naver_df(stock_code)['자본총계(지배)']['2020(IFRS연결)']
             ebitda_2019 = naver_df(stock_code)['세전계속사업이익']['2019(IFRS연결)']
             equity_2019 = naver_df(stock_code)['자본총계(지배)']['2019(IFRS연결)']
-            ebitda_2018 = naver_df(stock_code)['세전계속사업이익']['2018(IFRS연결)']
-            equity_2018 = naver_df(stock_code)['자본총계(지배)']['2018(IFRS연결)']
         else:
+            ebitda_2021 = naver_df(stock_code)['세전계속사업이익']['2021(IFRS별도)']
+            equity_2021 = naver_df(stock_code)['자본총계(지배)']['2021(IFRS별도)']
             ebitda_2020 = naver_df(stock_code)['세전계속사업이익']['2020(IFRS별도)']
             equity_2020 = naver_df(stock_code)['자본총계(지배)']['2020(IFRS별도)']
             ebitda_2019 = naver_df(stock_code)['세전계속사업이익']['2019(IFRS별도)']
             equity_2019 = naver_df(stock_code)['자본총계(지배)']['2019(IFRS별도)']
-            ebitda_2018 = naver_df(stock_code)['세전계속사업이익']['2018(IFRS별도)']
-            equity_2018 = naver_df(stock_code)['자본총계(지배)']['2018(IFRS별도)']
 
-        if ebitda_2020 > equity_2020 / 2 or ebitda_2019 > equity_2019 / 2 or ebitda_2018 > equity_2018 / 2:
+        if ebitda_2021 > equity_2021 / 2 or ebitda_2020 > equity_2020 / 2 or ebitda_2019 > equity_2019 / 2:
             result = 'risky'
         else:
             result = 'okay'
@@ -149,18 +149,18 @@ def run():
         return result
 
     def risk_capital(stock_code):
-        if naver_df(stock_code)['자본총계']['2020(IFRS연결)'] != 0:
+        if naver_df(stock_code)['자본총계']['2021(IFRS연결)'] != 0:
+            total_equity_2021 = naver_df(stock_code)['자본총계']['2021(IFRS연결)']
+            capital_2021 = naver_df(stock_code)['자본금']['2021(IFRS연결)']
             total_equity_2020 = naver_df(stock_code)['자본총계']['2020(IFRS연결)']
             capital_2020 = naver_df(stock_code)['자본금']['2020(IFRS연결)']
-            total_equity_2019 = naver_df(stock_code)['자본총계']['2019(IFRS연결)']
-            capital_2019 = naver_df(stock_code)['자본금']['2019(IFRS연결)']
         else:
+            total_equity_2021 = naver_df(stock_code)['자본총계']['2021(IFRS별도)']
+            capital_2021 = naver_df(stock_code)['자본금']['2021(IFRS별도)']
             total_equity_2020 = naver_df(stock_code)['자본총계']['2020(IFRS별도)']
             capital_2020 = naver_df(stock_code)['자본금']['2020(IFRS별도)']
-            total_equity_2019 = naver_df(stock_code)['자본총계']['2019(IFRS별도)']
-            capital_2019 = naver_df(stock_code)['자본금']['2019(IFRS별도)']
 
-        if capital_2020 / total_equity_2020 >= 0.5 or capital_2019 / total_equity_2019 >= 0.5:
+        if capital_2021 / total_equity_2021 >= 0.5 or capital_2020 / total_equity_2020 >= 0.5:
             result = 'risky'
         else:
             result = 'okay'
@@ -228,9 +228,9 @@ def run():
             srim20_price = srim(stock_code, 0.8)
 
             roe_average = float(round(roe_3(stock_code), 2))
+            roe_2021 = float(round(roe(stock_code, '2021'), 2))
             roe_2020 = float(round(roe(stock_code, '2020'), 2))
             roe_2019 = float(round(roe(stock_code, '2019'), 2))
-            roe_2018 = float(round(roe(stock_code, '2018'), 2))
             bbb_rate = float(bbb())
 
             gap = float(round(gap_(stock_code), 2))
@@ -245,7 +245,7 @@ def run():
             if Stock.objects.filter(code=stock_code).count() == 0:
                 Stock(code=stock_code, name=name, sector=sector, current_price=current_price, srim_price=srim_price,
                       srim10_price=srim10_price, srim20_price=srim20_price, roe_average=roe_average,
-                      roe_2020=roe_2020, roe_2019=roe_2019, roe_2018=roe_2018, bbb_rate=bbb_rate,
+                      roe_2021=roe_2021, roe_2020=roe_2020, roe_2019=roe_2019, bbb_rate=bbb_rate,
                       gap=gap, risky=risky, risky_revenue=risky_revenue, risky_profit=risky_profit,
                       risky_ebitda=risky_ebitda, risky_capital=risky_capital).save()
             else:
