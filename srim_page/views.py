@@ -3,6 +3,12 @@ from django.views.generic import ListView, DetailView, TemplateView
 from .models import Stock, Intro, About_Page, About_Srim
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+
+
+# google ads sense for ads.txt
+def Ads(request):
+    return HttpResponse("google.com, pub-4797990243402655, DIRECT, f08c47fec0942fa0")
 
 
 # Stock Like List View for User

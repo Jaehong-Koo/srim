@@ -24,9 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'secret key' # 비밀키, 개인적으로 보유하고 있음
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['3.37.5.6', 'srimfinder.com', 'www.srimfinder.com']
+# ALLOWED_HOSTS = ['3.37.5.6', 'srimfinder.com', 'www.srimfinder.com']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 

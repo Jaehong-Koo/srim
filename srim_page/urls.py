@@ -14,4 +14,5 @@ urlpatterns = [
     path('srim/<int:pk>/', views.StockChartView.as_view()),
     path('<int:pk>/like/', views.like, name='like'),
     path('like_list/', views.StockLikeList.as_view(), name='like_list'),
+    path('ads.txt',views.Ads),
 ]
