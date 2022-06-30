@@ -235,7 +235,7 @@ def run():
             fnguide_df = pd.concat([fnguide_df, mystock_count_df(stock_code)])
             print(cnt, "done")
         except:
-            print(stock_code)
+            # print(stock_code)
             pass
 
     naver_report = naver_report.fillna(0)
@@ -330,6 +330,8 @@ def run():
             roe_average = 0
 
         return roe_average
+
+
 
     ## 상장폐지 4가지 요건
     # 매출액 : 50억미만, 2년 (별도)
